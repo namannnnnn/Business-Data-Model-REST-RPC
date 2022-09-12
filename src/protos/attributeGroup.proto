@@ -29,7 +29,7 @@ message AttributeGroupRes {
     string updatedAt = 6;
 }
 
-message AttributeGroupsResponse {
+message AttributeGroupResponse {
     uint32 id = 1;
     string attributeGroupName = 2;
     bool status = 3;
