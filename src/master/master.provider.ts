@@ -1,7 +1,7 @@
 /* eslint-disable */
 
 import { DataSource } from "typeorm";
-import { Master, ReferenceMaster } from "../Entities/master.entity";
+import { Master, ReferenceMaster } from "../entities/master.entity";
 
 export const masterProviders = [
   {

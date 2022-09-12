@@ -1,9 +1,9 @@
 /* eslint-disable */
 
 import { DataSource } from "typeorm";
-import { ReferenceAttributes } from "../Entities/referenceAttribute.entity";
-import { ReferenceMaster } from "../Entities/master.entity";
-import { Attribute, AttributeGroup } from "../Entities/attribute.entity";
+import { ReferenceAttributes } from "../entities/referenceAttribute.entity";
+import { ReferenceMaster } from "../entities/master.entity";
+import { Attribute, AttributeGroup } from "../entities/attribute.entity";
 // import { CategoryAssignment } from 'src/Entities/categoryAssignment.entity';
 // import { ProductAssignment } from 'src/Entities/productAssignment.entity';
 // import { ProductComboAssignment } from 'src/Entities/productComboAssignment.entity';

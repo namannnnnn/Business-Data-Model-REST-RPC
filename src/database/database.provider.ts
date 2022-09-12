@@ -2,7 +2,7 @@
 
 import { DataSource } from "typeorm";
 import { TypeOrmModuleOptions } from "@nestjs/typeorm";
-import { PdmTables } from "../Entities/pdmTables.entity";
+import { PdmTables } from "../entities/pdmTables.entity";
 
 export const databaseProviders = [
   {

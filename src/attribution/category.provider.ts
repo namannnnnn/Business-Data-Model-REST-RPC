@@ -1,12 +1,12 @@
 /* eslint-disable */
 
 import { DataSource } from "typeorm";
-import { ReferenceAttributes } from "../Entities/referenceAttribute.entity";
-import { ReferenceMaster } from "../Entities/master.entity";
-import { Attribute, AttributeGroup } from "../Entities/attribute.entity";
-import { CategoryAssignment } from "src/Entities/categoryAssignment.entity";
-import { Category } from "../Entities/category.entity";
-import { CategoryGroupAssignment } from "src/Entities/categoryGroupAssignment.entity";
+import { ReferenceAttributes } from "../entities/referenceAttribute.entity";
+import { ReferenceMaster } from "../entities/master.entity";
+import { Attribute, AttributeGroup } from "../entities/attribute.entity";
+import { CategoryAssignment } from "src/entities/categoryAssignment.entity";
+import { Category } from "../entities/category.entity";
+import { CategoryGroupAssignment } from "src/entities/categoryGroupAssignment.entity";
 // import { ProductAssignment } from 'src/Entities/productAssignment.entity';
 // import { ProductComboAssignment } from 'src/Entities/productComboAssignment.entity';
 // import { TextValidation, NumericValidation, DateValidation, TimeValidation , PasswordValidation, RangeValidation, SingleSelectionValidation, MultipleSelectionValidation, DropdownValidation, UrlValidation } from 'src/Entities/validation.entity';

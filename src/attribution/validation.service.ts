@@ -34,7 +34,7 @@ import {
 
 import { InjectDataSource, InjectRepository } from "@nestjs/typeorm";
 import { v4 as uuidv4 } from "uuid";
-import { ReferenceAttributes } from "../Entities/referenceAttribute.entity";
+import { ReferenceAttributes } from "../entities/referenceAttribute.entity";
 import {
   TextValidation,
   NumericValidation,
@@ -46,10 +46,10 @@ import {
   MultipleSelectionValidation,
   DropdownValidation,
   UrlValidation,
-} from "src/Entities/validation.entity";
+} from "src/entities/validation.entity";
 // import { Rule } from '../iterfaces/rules.interface'
 // import { AttributeGroup } from 'src/Entities/attributeGroup.entity'
-import { ReferenceMaster } from "src/Entities/master.entity";
+import { ReferenceMaster } from "src/entities/master.entity";
 import { refAttrByIdDto, refAttrDto } from "src/dtos/referenceAttribute.dto";
 import {
   attrDto,
@@ -60,7 +60,7 @@ import {
   attrGroupResDto,
   assignAttr,
 } from "../dtos/attribute.dto";
-import { Attribute, AttributeGroup } from "../Entities/attribute.entity";
+import { Attribute, AttributeGroup } from "../entities/attribute.entity";
 
 var validationFound;
 var val;

@@ -2,7 +2,7 @@
 
 import { Injectable, Inject } from "@nestjs/common";
 import { Repository } from "typeorm";
-import { Master, ReferenceMaster } from "../Entities/master.entity";
+import { Master, ReferenceMaster } from "../entities/master.entity";
 import { databaseProviders } from "src/database/database.provider";
 import {
   masterDto,
@@ -26,7 +26,7 @@ export class MasterService {
     const masters = await this.masterRepository.save(masterDto);
     return { masters };
   }
-  
+
   async getMasters(id: number): Promise<any> {
     const master = await this.masterRepository.find({ where: { id: id } });
     let masters = JSON.stringify(master[0]);

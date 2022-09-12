@@ -19,7 +19,7 @@ import { ReferenceAttributeGrpcController, AttributeGrpcController,   AttributeG
 } from './attributionGrpc.controller'
 // import { ValidationService } from './validation.service';
 // import { mappingProviders } from 'src/mappingProviders/category.provider';
-import { PdmTables } from "../Entities/pdmTables.entity";
+import { PdmTables } from "../entities/pdmTables.entity";
 
 @Module({
   imports: [DatabaseModule, TypeOrmModule.forFeature([PdmTables], "PDM")],

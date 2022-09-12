@@ -21,20 +21,20 @@ import {
   dropDownVldn,
   urlVldn,
 } from "src/dtos/validation.dto";
-import { CategoryAssignment } from "src/Entities/categoryAssignment.entity";
-import { Category } from "../Entities/category.entity";
-import { CategoryGroupAssignment } from "src/Entities/categoryGroupAssignment.entity";
+import { CategoryAssignment } from "src/entities/categoryAssignment.entity";
+import { Category } from "../entities/category.entity";
+import { CategoryGroupAssignment } from "src/entities/categoryGroupAssignment.entity";
 import {
   categoryMapReqDto,
   categoryMapGroupReqDto,
 } from "../dtos/category.dto";
 import { InjectDataSource, InjectRepository } from "@nestjs/typeorm";
 import { v4 as uuidv4 } from "uuid";
-import { ReferenceAttributes } from "../Entities/referenceAttribute.entity";
+import { ReferenceAttributes } from "../entities/referenceAttribute.entity";
 import { ValidationService } from "./validation.service";
 // import { Rule } from '../iterfaces/rules.interface'
 // import { AttributeGroup } from 'src/Entities/attributeGroup.entity'
-import { ReferenceMaster } from "src/Entities/master.entity";
+import { ReferenceMaster } from "src/entities/master.entity";
 import { refAttrByIdDto, refAttrDto } from "src/dtos/referenceAttribute.dto";
 import {
   attrDto,
@@ -48,7 +48,7 @@ import {
   assignAttr,
   attributeDtoRpc
 } from "../dtos/attribute.dto";
-import { Attribute, AttributeGroup } from "../Entities/attribute.entity";
+import { Attribute, AttributeGroup } from "../entities/attribute.entity";
 
 @Injectable()
 export class AttributeService {

@@ -3,7 +3,7 @@
 import { Controller, Inject,  } from '@nestjs/common';
 import { AttributeService } from './attribution.service'
 import { GrpcMethod, GrpcStreamMethod, GrpcStreamCall, Client, ClientGrpc,Transport } from '@nestjs/microservices';
-import { Master, ReferenceMaster } from '../Entities/master.entity';
+import { Master, ReferenceMaster } from '../entities/master.entity';
 import { map } from 'rxjs';
 import { join } from 'path';
 import { refAttrByIdDto, refAttrDto } from "../dtos/referenceAttribute.dto";
