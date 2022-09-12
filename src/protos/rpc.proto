@@ -1,0 +1,49 @@
+syntax = "proto3";
+
+package BusinessDataModel;
+
+import "google/protobuf/empty.proto";
+import "master.proto";
+import "referenceMaster.proto";
+import "referenceAttribute.proto";
+import "attribute.proto";
+import "validations.proto";
+
+service MasterService  {
+    rpc CreateMaster(Master) returns (MasterResponse);
+    rpc GetMaster(MasterId) returns (MasterResponse);
+    rpc GetAllMasters(google.protobuf.Empty) returns (Masters);
+    rpc UpdateMaster(UpdateMaster) returns (MasterResponse);
+    rpc DeleteMaster(MasterId) returns (google.protobuf.Empty);
+}
+
+service ReferenceMasterService {
+    rpc CreateReferenceMaster(ReferenceMaster) returns(ReferenceMasterResponse);
+    rpc GetReferenceMaster(MasterId) returns(ReferenceMasterResponse);
+    rpc GetAllReferenceMasters(google.protobuf.Empty) returns(ReferenceMasters);
+    rpc UpdateReferenceMaster(UpdateReferenceMaster) returns(ReferenceMasterResponse);
+    rpc DeleteReferenceMaster(MasterId) returns(google.protobuf.Empty);
+}
+
+service ReferenceAttributeService {
+    rpc CreateReferenceAttribute(ReferenceAttribute) returns (ReferenceAttributeResponse);
+    rpc GetReferenceAttribute(MasterId) returns (ReferenceAttributeResponse);
+    rpc GetAllReferenceAttribute(google.protobuf.Empty) returns (ReferenceAttributes);
+    rpc GetReferenceAttributeForMaster(MasterId) returns (ReferenceAttributes);
+    rpc UpdateReferenceAttribute(UpdateReferenceAttribute) returns (ReferenceAttributeResponse);
+    rpc DeleteReferenceAttribute(MasterId) returns (google.protobuf.Empty);
+}
+
+service AttributeService {
+    rpc CreateAttribute (Attribute) returns  (AttributeResponse);
+    rpc CreateAttributeByCategory(AttributeByCategory) returns (AttributeResponse);
+    rpc GetAttribute (MasterId) returns  (AttributeResponse);
+    rpc FetchReferenceAttribute(MasterId) returns (Attributes);
+    rpc GetAllAttribute (google.protobuf.Empty) returns  (Attributes);
+    rpc UpdateAttribute (UpdateAttribute) returns  (AttributeResponse);
+    rpc DeleteAttribute (MasterId) returns  (google.protobuf.Empty);
+    rpc FindValidation (MasterId) returns  (ValidatonResponse);
+    rpc UpdateValidation (UpdateValidation) returns  (ValidatonResponse);
+    rpc MapAttributesToCategory (MapAttribute) returns  (Attributes);
+    rpc GetAttributesByCategory (MasterId) returns  (Attributes);
+}

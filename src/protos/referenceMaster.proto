@@ -1,0 +1,35 @@
+syntax = "proto3";
+
+package BusinessDataModel;
+
+message ReferenceMaster {
+    string masterEntityName = 1;
+    string masterEntityType = 2;
+    string masterEntityDescription = 3;
+    string masterColumnName = 4;
+    bool status = 5;
+}
+
+message UpdateReferenceMaster {
+    uint32 id = 1;
+    string masterEntityName = 2;
+    string masterEntityType = 3;
+    string masterEntityDescription = 4;
+    string masterColumnName = 5;
+    bool status = 6;
+}
+
+message ReferenceMasterResponse {
+    uint32 id = 1;
+    string masterEntityName = 2;
+    string masterEntityType = 3;
+    string masterEntityDescription = 4;
+    string masterColumnName = 5;
+    bool status = 6;
+    string createdAt = 7;
+    string updatedAt = 8;
+}
+
+message ReferenceMasters {
+    repeated ReferenceMasterResponse referenceMasters = 1;
+}

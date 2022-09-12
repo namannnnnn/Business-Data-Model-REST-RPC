@@ -1,0 +1,43 @@
+syntax = "proto3";
+
+package BusinessDataModel;
+
+message MasterId {
+    uint32 id = 1;
+}
+
+message Master {
+    string masterEntityName = 1;
+    string masterEntityType = 2;
+    string masterEntityDescription = 3;
+    uint32 masterEntityLevels = 4;
+    string hierarchyDescription = 5;
+    bool status = 6;
+}
+
+message UpdateMaster {
+    uint32 id = 1;
+    string masterEntityName = 2;
+    string masterEntityType = 3;
+    string masterEntityDescription = 4;
+    uint32 masterEntityLevels = 5;
+    string hierarchyDescription = 6;
+    bool status = 7;
+}
+
+message MasterResponse {
+    uint32 id = 1;
+    string masterEntityName = 2;
+    string masterEntityType = 3;
+    string masterEntityDescription = 4;
+    uint32 masterEntityLevels = 5;
+    string hierarchyDescription = 6;
+    bool status = 7;
+    string createdAt = 8;
+    string updatedAt = 9;
+}
+
+message Masters {
+    repeated MasterResponse masters = 1;
+}
+

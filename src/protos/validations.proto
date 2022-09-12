@@ -1,0 +1,277 @@
+syntax = "proto3";
+
+package BusinessDataModel;
+
+import "google/protobuf/empty.proto";
+
+
+message TextValidation {
+    int32 maxCharacters = 1;
+    int32 minCharacters = 2; 
+    bool lowerCaseOnly = 3;
+    bool upperCaseOnly = 4;
+    bool allowNumbers = 5;
+    bool specialCharacters = 6;
+    bool spacingAllowed = 7;
+    string type = 8;
+}
+
+message booleanValidation  {
+    string type = 1;
+}
+
+message NumericValidation {
+    bool allowNumericOnly = 1;
+    bool allowDecimal = 2;
+    bool allowCommas = 3;
+    bool allowDots = 4;
+    bool allowSpaces = 5;
+    string type = 6;
+    int32 minValue = 7;
+    int32 maxValue = 8;
+}
+
+message DateValidation {
+    string type = 1;
+    string format = 2;
+    string minDate = 3;
+    string maxDate = 4;
+}
+
+message TimeValidation {
+    string type = 1;
+    string format = 2;
+    string minTime = 3;
+    string maxTime = 4;
+}
+
+message RangeValidation {
+    string type = 1;
+    bool inclusiveMin = 2;
+    bool inclusiveMax = 3;
+    int32 minRange = 4;
+    int32 maxRange = 5;
+}
+
+message SingleSelectionValidation {
+    string type = 1;
+    string default = 2;
+}
+
+message MultipleSelectionValidation {
+    string type = 1;
+    string default = 2;
+    int32 minEssentialSelection = 3;
+    int32 maxSelectionAllowed = 4;
+}
+
+message DropdownValidation {
+    string type = 1;
+    string default = 2;
+    int32 limitViewSelections = 3;
+}
+
+message UrlValidation {
+    string type = 1;
+    bool emptyProtocol = 2;
+    bool protocol = 3;
+    string format = 4;
+}
+
+message TextValidationById {
+    int32 id = 1;
+    int32 maxCharacters = 2;
+    int32 minCharacters = 3; 
+    bool lowerCaseOnly = 4;
+    bool upperCaseOnly = 5;
+    bool allowNumbers = 6;
+    bool specialCharacters = 7;
+    bool spacingAllowed = 8;
+    string type = 9;
+  
+}
+
+message booleanValidationById  {
+    int32 id = 1;
+    string type = 2;
+}
+
+message NumericValidationById {
+    int32 id = 1;
+    bool allowNumericOnly = 2;
+    bool allowDecimal = 3;
+    bool allowCommas = 4;
+    bool allowDots = 5;
+    bool allowSpaces = 6;
+    string type = 7;
+    int32 minValue = 8;
+    int32 maxValue = 9;
+}
+
+message DateValidationById {
+    int32 id = 1;
+    string type = 2;
+    string format = 3;
+    string minDate = 4;
+    string maxDate = 5;
+}
+
+message TimeValidationById {
+    int32 id = 1;
+    string type = 2;
+    string format = 3;
+    string minTime = 4;
+    string maxTime = 5;
+}
+
+message RangeValidationById {
+    int32 id = 1;
+    string type = 2;
+    bool inclusiveMin = 3;
+    bool inclusiveMax = 4;
+    int32 minRange = 5;
+    int32 maxRange = 6;
+}
+
+message SingleSelectionValidationById {
+    string type = 1;
+    string default = 2;
+    int32 id = 3;
+}
+
+message MultipleSelectionValidationById {
+    string type = 1;
+    string default = 2;
+    int32 minEssentialSelection = 3;
+    int32 maxSelectionAllowed = 4;
+    int32 id = 5;
+}
+
+message DropdownValidationById {
+    string type = 1;
+    string default = 2;
+    int32 limitViewSelections = 3;
+    int32 id = 4;
+}
+
+message UrlValidationById {
+    string type = 1;
+    bool emptyProtocol = 2;
+    bool protocol = 3;
+    string format = 4;
+    int32 id = 5;
+}
+
+message TextValidationResp {
+    int32 maxCharacters = 1;
+    int32 minCharacters = 2; 
+    bool lowerCaseOnly = 3;
+    bool upperCaseOnly = 4;
+    bool allowNumbers = 5;
+    bool specialCharacters = 6;
+    bool spacingAllowed = 7;
+    string type = 8;
+    int32 id = 9;
+    int32 attributeId = 10;
+    string createdAt = 11;
+    string updatedAt = 12;
+}
+
+
+message booleanValidationResp  {
+    int32 id = 1;
+    string type = 2;
+    int32 attributeId = 3;
+    string createdAt = 4;
+    string updatedAt = 5;
+}
+
+message NumericValidationResp {
+    int32 id = 1;
+    bool allowNumericOnly = 2;
+    bool allowDecimal = 3;
+    bool allowCommas = 4;
+    bool allowDots = 5;
+    bool allowSpaces = 6;
+    string type = 7;
+    int32 minValue = 8;
+    int32 maxValue = 9;
+    int32 attributeId = 10;
+    string createdAt = 11;
+    string updatedAt = 12;
+}
+
+message DateValidationResp {
+    int32 id = 1;
+    string type = 2;
+    string format = 3;
+    string minDate = 4;
+    string maxDate = 5;
+    int32 attributeId = 6;
+    string createdAt = 7;
+    string updatedAt = 8;
+}
+
+message TimeValidationResp {
+    int32 id = 1;
+    string type = 2;
+    string format = 3;
+    string minTime = 4;
+    string maxTime = 5;
+    int32 attributeId = 6;
+    string createdAt = 7;
+    string updatedAt = 8;
+}
+
+message RangeValidationResp {
+    int32 id = 1;
+    string type = 2;
+    bool inclusiveMin = 3;
+    bool inclusiveMax = 4;
+    int32 minRange = 5;
+    int32 maxRange = 6;
+    int32 attributeId = 7;
+    string createdAt = 8;
+    string updatedAt = 9;
+}
+
+message SingleSelectionValidationResp {
+    string type = 1;
+    string default = 2;
+    int32 id = 3;
+    int32 attributeId = 4;
+    string createdAt = 5;
+    string updatedAt = 6;
+}
+
+message MultipleSelectionValidationResp {
+    string type = 1;
+    string default = 2;
+    int32 minEssentialSelection = 3;
+    int32 maxSelectionAllowed = 4;
+    int32 id = 5;
+    int32 attributeId = 6;
+    string createdAt = 7;
+    string updatedAt = 8;
+}
+
+message DropdownValidationResp {
+    string type = 1;
+    string default = 2;
+    int32 limitViewSelections = 3;
+    int32 id = 4;
+    int32 attributeId = 5;
+    string createdAt = 6;
+    string updatedAt = 7;
+}
+
+message UrlValidationResp {
+    string type = 1;
+    bool emptyProtocol = 2;
+    bool protocol = 3;
+    string format = 4;
+    int32 id = 5;
+    int32 attributeId = 6;
+    string createdAt = 7;
+    string updatedAt = 8;
+}

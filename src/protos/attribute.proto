@@ -1,0 +1,141 @@
+syntax = "proto3";
+
+package BusinessDataModel;
+
+import "validations.proto";
+import "google/protobuf/empty.proto";
+
+
+message Attribute {
+    string attributeName = 1;
+    string labelName = 2;
+    string labelDescription = 3;
+    string attributeType = 4;
+    bool constraint = 5;
+    uint32 masterId = 6;
+    uint32 referenceMasterId = 7;
+    uint32 attributeGroupId = 8;
+    oneof validation {
+        TextValidation textVldn = 9;
+        NumericValidation numericVldn = 10;
+        DateValidation dateVldn = 11;
+        TimeValidation timeVldn = 12;
+        RangeValidation rangeVldn = 13;
+        SingleSelectionValidation singleSelectionVldn = 14;
+        MultipleSelectionValidation multipleSelectionVldn = 15;
+        DropdownValidation dropdownVldn = 16;
+        UrlValidation urlVldn = 17;
+        booleanValidation booleanVldn = 18;
+    }
+    bool status = 19;
+}
+
+message Validation {
+    oneof validation {
+        TextValidation textVldn = 1;
+        NumericValidation numericVldn = 2;
+        DateValidation dateVldn = 3;
+        TimeValidation timeVldn = 4;
+        RangeValidation rangeVldn = 5;
+        SingleSelectionValidation singleSelectionVldn = 6;
+        MultipleSelectionValidation multipleSelectionVldn = 7;
+        DropdownValidation dropdownVldn = 8;
+        UrlValidation urlVldn = 9;
+        booleanValidation booleanVldn = 10;
+    }
+}
+
+message UpdateValidation {
+    uint32 id  = 1;
+    oneof validation {
+        TextValidationById textVldnById = 2;
+        NumericValidationById numericVldnById = 3;
+        DateValidationById dateVldnById = 4;
+        TimeValidationById timeVldnById = 5;
+        RangeValidationById rangeVldnById = 6;
+        SingleSelectionValidationById singleSelectionVldnById = 7;
+        MultipleSelectionValidationById multipleSelectionVldnById = 8;
+        DropdownValidationById dropdownVldnById = 9;
+        UrlValidationById urlVldnById = 10;
+        booleanValidationById booleanVldnById = 11;
+    }
+}
+
+message ValidatonResponse {
+    oneof validation {
+        TextValidationResp textVldn = 1;
+        NumericValidationResp numericVldn = 2;
+        DateValidationResp dateVldn = 3;
+        TimeValidationResp timeVldn = 4;
+        RangeValidationResp rangeVldn = 5;
+        SingleSelectionValidationResp singleSelectionVldn = 6;
+        MultipleSelectionValidationResp multipleSelectionVldn = 7;
+        DropdownValidationResp dropdownVldn = 8;
+        UrlValidationResp urlVldn = 9;
+        booleanValidationResp booleanVldn = 10;
+    }
+}
+
+
+
+message AttributeByCategory {
+    string attributeName = 1;
+    string labelName = 2;
+    string labelDescription = 3;
+    string attributeType = 4;
+    bool constraint = 5;
+    uint32 masterId = 6;
+    uint32 referenceMasterId = 7;
+    uint32 attributeGroupId = 8;
+    oneof validation {
+        TextValidation textVldn = 9;
+        NumericValidation numericVldn = 10;
+        DateValidation dateVldn = 11;
+        TimeValidation timeVldn = 12;
+        RangeValidation rangeVldn = 13;
+        SingleSelectionValidation singleSelectionVldn = 14;
+        MultipleSelectionValidation multipleSelectionVldn = 15;
+        DropdownValidation dropdownVldn = 16;
+        UrlValidation urlVldn = 17;
+        booleanValidation booleanVldn = 18;
+    }
+    bool status = 19;
+    uint32 categoryId = 20;
+}
+
+message AttributeResponse {
+    uint32 id = 1;
+    string attributeName = 3;
+    string labelDescription = 4;
+    string labelName = 5;
+    string attributeType = 6;
+    bool constraint = 7;
+    uint32 masterId = 8;
+    uint32 attributeGroupId = 9;
+    uint32 referenceMasterId = 10;
+    bool status = 11;
+    string createdAt = 12;
+    string updatedAt = 13;
+}
+
+message Attributes {
+    repeated Attribute attributes = 1;
+}
+
+message UpdateAttribute {
+    uint32 id = 1;
+    string attributeName = 2;
+    string labelName = 3;
+    string labelDescription = 4;
+    string attributeType = 5;
+    bool constraint = 6;
+    uint32 masterId = 7;
+    uint32 referenceMasterId = 8;
+    uint32 attributeGroupId = 9;
+    bool status = 10;
+}
+
+message MapAttribute {
+    uint32 id = 1;
+    repeated uint32 attIds = 2;
+}

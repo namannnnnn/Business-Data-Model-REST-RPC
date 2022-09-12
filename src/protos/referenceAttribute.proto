@@ -1,0 +1,36 @@
+syntax = "proto3";
+
+package BusinessDataModel;
+
+message ReferenceAttribute {
+    string attributeName = 1;
+    string displayName = 2;
+    string attributeType = 3;
+    uint32 referenceMasterId = 4;
+    bool status = 5;
+}
+
+message UpdateReferenceAttribute {
+    uint32 id = 1;
+    string attributeName = 2;
+    string displayName = 3;
+    string attributeType = 4;
+    uint32 referenceMasterId = 5;
+    bool status = 6;
+}
+
+message ReferenceAttributeResponse {
+    uint32 id = 1;
+    string attributeName = 2;
+    string displayName = 3;
+    string attributeType = 4;
+    uint32 referenceMasterId = 5;
+    bool status = 6;
+    string createdAt = 7;
+    string updatedAt = 8;
+
+}
+
+message ReferenceAttributes {
+    repeated ReferenceAttributeResponse referenceAttributes  =1;
+}
