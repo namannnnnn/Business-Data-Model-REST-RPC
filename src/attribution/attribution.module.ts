@@ -15,7 +15,8 @@ import {
   AttributeGroupController,
   PdmController,
 } from "./attribution.controller";
-import { ReferenceAttributeGrpcController, AttributeGrpcController } from './attributionGrpc.controller'
+import { ReferenceAttributeGrpcController, AttributeGrpcController,   AttributeGroupGrpcController, PdmGrpcController,
+} from './attributionGrpc.controller'
 // import { ValidationService } from './validation.service';
 // import { mappingProviders } from 'src/mappingProviders/category.provider';
 import { PdmTables } from "../Entities/pdmTables.entity";
@@ -36,7 +37,9 @@ import { PdmTables } from "../Entities/pdmTables.entity";
     AttributeGrpcController,
     AttributeController,
     AttributeGroupController,
+    AttributeGroupGrpcController,
     PdmController,
+    PdmGrpcController
   ],
   exports: [],
 })

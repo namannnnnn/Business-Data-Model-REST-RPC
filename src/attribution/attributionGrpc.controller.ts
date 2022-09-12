@@ -6,14 +6,16 @@ import { GrpcMethod, GrpcStreamMethod, GrpcStreamCall, Client, ClientGrpc,Transp
 import { Master, ReferenceMaster } from '../Entities/master.entity';
 import { map } from 'rxjs';
 import { join } from 'path';
-  import { refAttrByIdDto, refAttrDto } from "../dtos/referenceAttribute.dto";
+import { refAttrByIdDto, refAttrDto } from "../dtos/referenceAttribute.dto";
   import {
     attrDto,
     attrByIdDto,
     attrCatDto,
     attrGroupReqDto,
+    attrGroupReqCatDto,
     assignAttr,
     attrGroupById,
+    attributeDtoRpc
   } from "../dtos/attribute.dto";
   import { ValidationService } from "./validation.service";
   import { PdmService } from "./pdm.service";
@@ -177,8 +179,8 @@ export class AttributeGroupGrpcController {
     private readonly validationService: ValidationService;
 
     @GrpcMethod('AttributeGroupService', 'CreateAttributeGroup')
-    private async createAttributeGroup( attrGroupReqDto: attrGroupReqDto): Promise<any> {
-      const res = await this.service.createAttributeGroups(attrGroupReqDto);
+    private async createAttributeGroup( body:{ "attributeGroupName" : string, "status": boolean, "tenantId": number,"categoryId":number, attributes : Array<attributeDtoRpc> }): Promise<any> {
+      const res = await this.service.createAttributeGroupRpc(body);
       return res;
     }
 
@@ -190,28 +192,82 @@ export class AttributeGroupGrpcController {
 
     
     @GrpcMethod('AttributeGroupService', 'CreateAttributeGroupByCategory')
-    private async createAttributeGroupByCategory(attrGroupReqCatDto:attrGroupReqCatDto):Promise<any> {
-      private as
+    private async createAttributeGroupByCategory(body:{ "attributeGroupName" : string, "status": boolean, "tenantId": number,"categoryId":number, attributes : Array<attributeDtoRpc> }):Promise<any> {
+     const res = await this.service.createAttributeGroupByCategoriesRpc(body);
+     return res;
     }
 
-
-    
-
     @GrpcMethod('AttributeGroupService', 'GetAttributeGroupByCategory')
+    private async getAttributeGroupByCategory(body:{ "id" : number}):Promise<any> {
+      const res = await this.service.getAttributeGroupByCategories(body.id)
+      return res;
+    }
 
     @GrpcMethod('AttributeGroupService', 'GetAllAttributeGroup')
+    private async getAllAttributeGroups():Promise<any> {
+      const res = await this.service.getAllAttributeGroups();
+      return res;
+    }
 
     @GrpcMethod('AttributeGroupService', 'AssignAttributesToAttributeGroup')
+    private async assignAttributeToAttributeGroups(assignAttr:assignAttr):Promise<any> {
+      const res = await this.service.assignAttributeToAttributeGroups(assignAttr);
+      return res;
+    }
 
     @GrpcMethod('AttributeGroupService', 'RemoveAttributesToAttributeGroup')
+    private async removeAttributes( assignAttr: assignAttr): Promise<any> {
+      const res = await this.service.removeAttributesFromAttributeGroups( assignAttr );
+      return res;
+    }
 
     @GrpcMethod('AttributeGroupService', 'UpdateAttributeGroup')
+    private async updateAttributeGroups(attrGroupById:attrGroupById):Promise<any> {
+      const res = await this.service.updateAttributeGroups(attrGroupById);
+      return res;
+    }
 
     @GrpcMethod('AttributeGroupService', 'DeleteAttributeGroup')
+    private async deleteAttributeGroup(body:{ id: number }): Promise<any> {
+      const res = await this.service.deleteAttributeGroups(body.id);
+      return res;
+    }
 
     @GrpcMethod('AttributeGroupService', 'MapAttributeGroupToCategory')
+    private async mapAttributeGroups( categoryMapGroupReqDto: categoryMapGroupReqDto ): Promise<any> {
+      const res = await this.service.mapAttributeGroupsToCategories( categoryMapGroupReqDto );
+      return res;
+    }
 
     @GrpcMethod('AttributeGroupService', 'GetAttributeGroupsByCategory')
+    private async getAttributeGroupsByCategory():Promise<any> {
 
+    }
+
+}
+
+@Controller()
+export class PdmGrpcController {
+
+  @Inject(AttributeService)
+  private readonly service: AttributeService;
+
+  @Inject(ValidationService)
+  private readonly validationService: ValidationService;
+
+  @Inject(PdmService)
+  private readonly pdmService: PdmService;
+
+  @GrpcMethod('PhysicalDataModelService', 'CreatePhysicalDataModel')
+  private async createPhysicalDatamodel( idDto: idDto): Promise<any> {
+    const res = await this.pdmService.createColumns(idDto.id);
+    return res;
+  }
+
+  @GrpcMethod('PhysicalDataModelService', 'GetPhysicalDataModel')
+  private async getPhysicalDataModel(body:{ id: number }): Promise<any> {
+    const res = await this.pdmService.getPhysicalModel(body.id);
+    return res;
+  }
 
 }

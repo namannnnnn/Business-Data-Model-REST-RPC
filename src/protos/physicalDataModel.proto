@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+package BusinessDataModel;
+
+message PhysicalDataModel {
+
+    string tableName = 1;
+    repeated uint32 attributeIds = 2;
+    repeated uint32 attributeGroupIds = 3;
+
+}

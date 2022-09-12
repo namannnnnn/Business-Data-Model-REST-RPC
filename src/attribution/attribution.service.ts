@@ -46,6 +46,7 @@ import {
   attrGroupReqDto,
   attrGroupResDto,
   assignAttr,
+  attributeDtoRpc
 } from "../dtos/attribute.dto";
 import { Attribute, AttributeGroup } from "../Entities/attribute.entity";
 
@@ -160,7 +161,6 @@ export class AttributeService {
 
   async createAttributeByCategories(attrCatDto: attrCatDto): Promise<any> {
     
-    console.log(attrCatDto)
 
     if (attrCatDto.constraint == true) {
       attrCatDto.referenceMasterId;
@@ -226,7 +226,6 @@ export class AttributeService {
   }
 
   async updateAttributes(attrByIdDto: attrByIdDto): Promise<any> {
-    console.log(attrByIdDto)
     const attributes = await this.attributeRepository.update(
       { id: attrByIdDto.id },
       { ...attrByIdDto }
@@ -354,6 +353,131 @@ export class AttributeService {
     return attrGroupRes;
   }
 
+  async createAttributeGroupRpc( body:{ "attributeGroupName" : string, "status": boolean, "tenantId":number,attributes : Array<attributeDtoRpc> } ): Promise<any> {
+    
+    
+    body.tenantId = 1;
+    const attributeGroups = await this.attributeGroupRepository.save({
+      tenantId: body.tenantId,
+      attributeGroupName: body.attributeGroupName,
+      status: body.status,
+    });
+    if (
+      body.attributes &&
+      body.attributes.length > 0
+    ) {
+        // const setAttributes = await body.ids.map(async(i) => { await this.attributeRepository.update({ id : i.id }, { attributeGroupId : attributeGroups.id }) })
+      for (let i = 0; i < body.attributes.length; i++) {
+        // attrGroupReqCatDto.attributes[i].attributeGroupId = attributeGroups.id;
+        body.attributes[i].attributeGroupId = attributeGroups.id
+
+        await this.createAttributesRpc(body.attributes[i]);
+      }
+    }
+
+    const attributeGroup = await this.attributeGroupRepository.find({
+      relations: {
+        attributes: true,
+      },
+      where: {
+        id: attributeGroups.id,
+      },
+    });
+    let attrGroupRes = new attrGroupResDto();
+    attrGroupRes.id = attributeGroups.id;
+    attrGroupRes.tenantId = attributeGroups.tenantId;
+    attrGroupRes.attributeGroupName = attributeGroups.attributeGroupName;
+    attrGroupRes.status = attributeGroups.status;
+    attrGroupRes.createdAt = attributeGroups.createdAt;
+    attrGroupRes.updatedAt = attributeGroups.updatedAt;
+
+    if (
+      body.attributes &&
+      body.attributes.length > 0
+    ) {
+      const arrayAtts: attrByIdResDto[] = [];
+      for (let j = 0; j < attributeGroup[0].attributes.length; j++) {
+        let at;
+        at = JSON.stringify(attributeGroup[0].attributes[j]);
+        at = JSON.parse(at);
+        let a = new attrByIdResDto();
+        a = at;
+        arrayAtts.push(a);
+      }
+      attrGroupRes.attributes = arrayAtts;
+    }
+
+    
+    return attrGroupRes;
+
+  }
+
+  async createAttributeGroupByCategoriesRpc( body:{ "attributeGroupName" : string, "status": boolean, "categoryId":number, "tenantId":number,attributes : Array<attributeDtoRpc> } ): Promise<any> {
+    
+    
+    body.tenantId = 1;
+    const attributeGroups = await this.attributeGroupRepository.save({
+      tenantId: body.tenantId,
+      attributeGroupName: body.attributeGroupName,
+      status: body.status,
+    });
+    if (
+      body.attributes &&
+      body.attributes.length > 0
+    ) {
+        // const setAttributes = await body.ids.map(async(i) => { await this.attributeRepository.update({ id : i.id }, { attributeGroupId : attributeGroups.id }) })
+      for (let i = 0; i < body.attributes.length; i++) {
+        // attrGroupReqCatDto.attributes[i].attributeGroupId = attributeGroups.id;
+        body.attributes[i].attributeGroupId = attributeGroups.id
+
+        await this.createAttributesRpc(body.attributes[i]);
+      }
+    }
+
+    const attributeGroup = await this.attributeGroupRepository.find({
+      relations: {
+        attributes: true,
+      },
+      where: {
+        id: attributeGroups.id,
+      },
+    });
+    let attrGroupRes = new attrGroupResDto();
+    attrGroupRes.id = attributeGroups.id;
+    attrGroupRes.tenantId = attributeGroups.tenantId;
+    attrGroupRes.attributeGroupName = attributeGroups.attributeGroupName;
+    attrGroupRes.status = attributeGroups.status;
+    attrGroupRes.createdAt = attributeGroups.createdAt;
+    attrGroupRes.updatedAt = attributeGroups.updatedAt;
+
+    if (
+      body.attributes &&
+      body.attributes.length > 0
+    ) {
+      const arrayAtts: attrByIdResDto[] = [];
+      for (let j = 0; j < attributeGroup[0].attributes.length; j++) {
+        let at;
+        at = JSON.stringify(attributeGroup[0].attributes[j]);
+        at = JSON.parse(at);
+        let a = new attrByIdResDto();
+        a = at;
+        arrayAtts.push(a);
+      }
+      attrGroupRes.attributes = arrayAtts;
+    }
+
+    let attGroup = JSON.stringify(attributeGroup[0]);
+    attGroup = JSON.parse(attGroup);
+    const attGroupAssign = new categoryMapGroupReqDto();
+    attGroupAssign.id = body.categoryId;
+    attGroupAssign.groupId = attributeGroups.id;
+    const attributesss = await this.mapAttributeGroupsToCategories(attGroupAssign);
+    
+    return attrGroupRes;
+
+  }
+
+
   async assignAttributeToAttributeGroups(assignAttr: assignAttr): Promise<any> {
     // const setAttributes =  await assignAttr.attributes.map(async(i) => { await this.attributeRepository.update({ id : i }, { attributeGroupId : assignAttr.id }) })
     for (let i = 0; i < assignAttr.attributes.length; i++) {
@@ -433,7 +557,6 @@ export class AttributeService {
     });
     let attGroups = JSON.stringify(attGroup[0]);
     attGroups = JSON.parse(attGroups);
-
     return attGroups;
   }
 
@@ -561,6 +684,7 @@ export class AttributeService {
   async mapAttributeGroupsToCategories(
     categoryMapGroupReqDto: categoryMapGroupReqDto
   ): Promise<any> {
+
     const catRes = await this.categoryRepository.save({
       id: categoryMapGroupReqDto.id,
     });
@@ -592,7 +716,6 @@ export class AttributeService {
       attArray.push(atts[i].id);
     }
     const ats = await this.attributeRepository.findBy({ id: In(attArray) });
-
     let attributes = JSON.stringify(ats);
     attributes = JSON.parse(attributes);
     return attributes;

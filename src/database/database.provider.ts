@@ -24,16 +24,6 @@ export const databaseProviders = [
   },
 ];
 
-// export const databaseSource = new DataSource({
-//         type: 'postgres',
-//         host: 'localhost',
-//         port: 5432,
-//         username: 'postgres',
-//         password: '1234',
-//         database: 'BDM',
-//         entities: [ 'dist/**/*.entity{.ts,.js}']
-// })
-
 export const PhysicalDataModel: TypeOrmModuleOptions = {
   type: "postgres",
   host: "localhost",

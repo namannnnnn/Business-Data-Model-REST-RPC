@@ -37,6 +37,30 @@ export class attrDto {
   status: boolean;
 }
 
+export class attributeDtoRpc {
+  tenantId: number;
+  attributeName: string;
+  labelName: string;
+  labelDescription: string;
+  attributeType: string;
+  constraint: boolean;
+  masterId: number;
+  referenceMasterId: number;
+  status: boolean;
+  attributeGroupId: number;
+  dateVldn : dateVldn;
+  boolVldn : boolVldn;
+  rangeVldn : rangeVldn;
+  singleSelectVldn : singleSelectVldn;
+  textVldn : textVldn;
+  numericVldn : numericVldn;
+  timeVldn : timeVldn;
+  multipleSelectionVldn : multipleSelectionVldn;
+  dropDownVldn : dropDownVldn;
+  urlVldn : urlVldn;
+}
+
+
 export class attrCatDto {
   tenantId: number;
   categoryId: number;

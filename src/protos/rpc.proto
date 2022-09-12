@@ -9,6 +9,7 @@ import "referenceAttribute.proto";
 import "attribute.proto";
 import "validations.proto";
 import "attributeGroup.proto";
+import "physicalDataModel.proto";
 
 service MasterService  {
     rpc CreateMaster(Master) returns (MasterResponse);
@@ -50,7 +51,6 @@ service AttributeService {
 }
 
 service AttributeGroupService {
-
     rpc CreateAttributeGroup(AttributeGroup) returns (AttributeGroupRes);
     rpc GetAttributeGroup(MasterId) returns (AttributeGroupRes);
     rpc CreateAttributeGroupByCategory(AttributeGroupCat) returns (AttributeGroupRes);
@@ -58,10 +58,13 @@ service AttributeGroupService {
     rpc GetAllAttributeGroup(google.protobuf.Empty) returns (Attributes);
     rpc AssignAttributesToAttributeGroup(MapAttribute) returns (AttributeGroupResponse);
     rpc RemoveAttributesToAttributeGroup(MapAttribute) returns (AttributeGroupResponse);
-    rpc UpdateAttributeGroup(MasterId) returns (google.protobuf.Empty);
+    rpc UpdateAttributeGroup(UpdateAttributeGroups) returns (AttributeGroupResponse);
     rpc DeleteAttributeGroup(MasterId) returns (google.protobuf.Empty);
     rpc MapAttributeGroupToCategory(MapAttribute) returns (AttributeGroupResponse);
     rpc GetAttributeGroupsByCategory(MasterId) returns (AttributeGroupResponse);
+}
 
-
+service PhysicalDataModelService {
+    rpc CreatePhysicalDataModel(MasterId) returns (google.protobuf.Empty);
+    rpc GetPhysicalDataModel(MasterId) returns (PhysicalDataModel);
 }

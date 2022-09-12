@@ -233,9 +233,7 @@ export class AttributeGroupController {
   private async mapAttributeGroups(
     @Body() categoryMapGroupReqDto: categoryMapGroupReqDto
   ): Promise<any> {
-    const res = await this.service.mapAttributeGroupsToCategories(
-      categoryMapGroupReqDto
-    );
+    const res = await this.service.mapAttributeGroupsToCategories( categoryMapGroupReqDto );
     return res;
   }
 

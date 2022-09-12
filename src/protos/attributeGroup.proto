@@ -10,13 +10,20 @@ message AttributeGroup {
 
     string attributeGroupName = 1;
     bool status = 2;
-    repeated Attributes attributes = 3;
+    repeated Attribute attributes = 3;
+}
+
+message UpdateAttributeGroups {
+    uint32 id = 1;
+    string attributeGroupName = 2;
+    bool status = 3;
+    uint32 tenantId = 4;
 }
 
 message AttributeGroupCat {
     string attributeGroupName = 1;
     bool status = 2;
-    repeated Attributes attributes = 3;
+    repeated Attribute attributes = 3;
     uint32 categoryId = 4;
 }
 

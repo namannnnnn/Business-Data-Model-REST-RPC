@@ -24,6 +24,7 @@ export class MasterController {
   private readonly service: MasterService;
 
   // To create Master
+  // master/create
   @Post("create")
   private async createMaster(@Body() masterDto: masterDto): Promise<any> {
     const res = await this.service.createMasters(masterDto);

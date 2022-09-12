@@ -250,11 +250,11 @@ export class PdmService {
     });
 
     for (let i = 0; i < attributeGroups.length; i++) {
-      physicalDataModel.attributeIds.push(attributeGroups[i].attributeGroupId);
+      physicalDataModel.attributeGroupIds.push(attributeGroups[i].attributeGroupId);
     }
 
     for (let i = 0; i < attributes.length; i++) {
-      physicalDataModel.attributeGroupIds.push(attributes[i].attributeId);
+      physicalDataModel.attributeIds.push(attributes[i].attributeId);
     }
     await queryRunner.release();
 

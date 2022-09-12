@@ -26,6 +26,7 @@ export class MasterService {
     const masters = await this.masterRepository.save(masterDto);
     return { masters };
   }
+  
   async getMasters(id: number): Promise<any> {
     const master = await this.masterRepository.find({ where: { id: id } });
     let masters = JSON.stringify(master[0]);
