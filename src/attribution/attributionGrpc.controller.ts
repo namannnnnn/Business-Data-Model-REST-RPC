@@ -190,6 +190,11 @@ export class AttributeGroupGrpcController {
 
     
     @GrpcMethod('AttributeGroupService', 'CreateAttributeGroupByCategory')
+    private async createAttributeGroupByCategory(attrGroupReqCatDto:attrGroupReqCatDto):Promise<any> {
+      private as
+    }
+
+
     
 
     @GrpcMethod('AttributeGroupService', 'GetAttributeGroupByCategory')

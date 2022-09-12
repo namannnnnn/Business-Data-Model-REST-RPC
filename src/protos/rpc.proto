@@ -8,7 +8,7 @@ import "referenceMaster.proto";
 import "referenceAttribute.proto";
 import "attribute.proto";
 import "validations.proto";
-import "attributeGroup.proto"
+import "attributeGroup.proto";
 
 service MasterService  {
     rpc CreateMaster(Master) returns (MasterResponse);
