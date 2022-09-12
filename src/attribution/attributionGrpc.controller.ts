@@ -149,13 +149,14 @@ export class AttributeGrpcController {
     @GrpcMethod('AttributeService', 'UpdateValidation') 
     private async updateValidation( body :  { attributeId : number,textVldnById : textVldnById, boolVldnById :boolVldnById,numericVldnById: numericVldnById, dateVldnById : dateVldnById, timeVldnById : timeVldnById, rangeVldnById : rangeVldnById, singleSelectVldnById: singleSelectVldnById, multipleSelectionVldnById : multipleSelectionVldnById, dropDownVldnById : dropDownVldnById, urlVldnById : urlVldnById }  ): Promise<any> {
       const res = await this.validationService.updateValidationRpc(body);
-      return {textVldn :res};
+      console.log(res)
+      return res;
     }
 
     @GrpcMethod('AttributeService', 'MapAttributesToCategory')
     private async mapAttributesToCategories(categoryMapReqDto: categoryMapReqDto): Promise<any> {
       const res = await this.service.mapAttributesToCategories(categoryMapReqDto);
-      return res;
+      return {attributes :res};
     }
 
     @GrpcMethod('AttributeService', 'GetAttributesByCategory')

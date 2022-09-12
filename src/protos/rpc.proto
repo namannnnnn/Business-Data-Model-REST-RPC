@@ -8,6 +8,7 @@ import "referenceMaster.proto";
 import "referenceAttribute.proto";
 import "attribute.proto";
 import "validations.proto";
+import "attributeGroup.proto"
 
 service MasterService  {
     rpc CreateMaster(Master) returns (MasterResponse);
@@ -46,4 +47,21 @@ service AttributeService {
     rpc UpdateValidation (UpdateValidation) returns  (ValidatonResponse);
     rpc MapAttributesToCategory (MapAttribute) returns  (Attributes);
     rpc GetAttributesByCategory (MasterId) returns  (Attributes);
+}
+
+service AttributeGroupService {
+
+    rpc CreateAttributeGroup(AttributeGroup) returns (AttributeGroupRes);
+    rpc GetAttributeGroup(MasterId) returns (AttributeGroupRes);
+    rpc CreateAttributeGroupByCategory(AttributeGroupCat) returns (AttributeGroupRes);
+    rpc GetAttributeGroupByCategory(MasterId) returns (AttributeGroupRes);
+    rpc GetAllAttributeGroup(google.protobuf.Empty) returns (Attributes);
+    rpc AssignAttributesToAttributeGroup(MapAttribute) returns (AttributeGroupResponse);
+    rpc RemoveAttributesToAttributeGroup(MapAttribute) returns (AttributeGroupResponse);
+    rpc UpdateAttributeGroup(MasterId) returns (google.protobuf.Empty);
+    rpc DeleteAttributeGroup(MasterId) returns (google.protobuf.Empty);
+    rpc MapAttributeGroupToCategory(MapAttribute) returns (AttributeGroupResponse);
+    rpc GetAttributeGroupsByCategory(MapAttribute) returns (AttributeGroupResponse);
+
+
 }

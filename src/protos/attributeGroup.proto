@@ -1,0 +1,38 @@
+syntax = "proto3";
+
+package BusinessDataModel;
+
+import "validations.proto";
+import "attribute.proto";
+import "google/protobuf/empty.proto";
+
+message AttributeGroup {
+
+    string attributeGroupName = 1;
+    bool status = 2;
+    repeated Attributes attributes = 3;
+}
+
+message AttributeGroupCat {
+    string attributeGroupName = 1;
+    bool status = 2;
+    repeated Attributes attributes = 3;
+    uint32 categoryId = 4;
+}
+
+message AttributeGroupRes {
+    uint32 id = 1;
+    string attributeGroupName = 2;
+    bool status = 3;
+    repeated AttributeResponse attributes = 4;
+    string createdAt = 5;
+    string updatedAt = 6;
+}
+
+message AttributeGroupsResponse {
+    uint32 id = 1;
+    string attributeGroupName = 2;
+    bool status = 3;
+    string createdAt = 4;
+    string updatedAt = 5;
+}

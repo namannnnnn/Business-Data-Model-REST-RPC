@@ -77,7 +77,6 @@ message ValidatonResponse {
 }
 
 
-
 message AttributeByCategory {
     string attributeName = 1;
     string labelName = 2;

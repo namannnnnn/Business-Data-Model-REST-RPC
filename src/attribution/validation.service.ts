@@ -864,7 +864,7 @@ async updateValidationRpc ( body:{ attributeId : number, dateVldnById : dateVldn
 
         val = JSON.stringify(validationFound[0])
         val = JSON.parse(val);
-    
+        console.log(val)
         return {textVldn : val};
         break;
 
@@ -939,6 +939,11 @@ async updateValidationRpc ( body:{ attributeId : number, dateVldnById : dateVldn
         validationFound = await this.multiSelectValidationRepository.find({
           where: { id: body.multipleSelectionVldnById.id },
         });
+        val = JSON.stringify(validationFound[0])
+        val = JSON.parse(val);
+    
+        return {multipleSelectionVldn : val};
+        
         break;
 
       // 7
@@ -951,6 +956,10 @@ async updateValidationRpc ( body:{ attributeId : number, dateVldnById : dateVldn
           where: { id: body.textVldnById.id },
         });
 
+        val = JSON.stringify(validationFound[0])
+        val = JSON.parse(val);
+    
+        return {textVldn : val};
         break;
 
       // 8
@@ -962,6 +971,10 @@ async updateValidationRpc ( body:{ attributeId : number, dateVldnById : dateVldn
         validationFound = await this.dateValidationRepository.find({
           where: { id: body.dateVldnById.id },
         });
+        val = JSON.stringify(validationFound[0])
+        val = JSON.parse(val);
+    
+        return {dateVldn : val};
         break;
 
       // 9
@@ -973,6 +986,10 @@ async updateValidationRpc ( body:{ attributeId : number, dateVldnById : dateVldn
         validationFound = await this.timeValidationRepository.find({
           where: { id: body.timeVldnById.id },
         });
+        val = JSON.stringify(validationFound[0])
+        val = JSON.parse(val);
+    
+        return {timeVldn : val};
         break;
 
       // 10
@@ -998,6 +1015,10 @@ async updateValidationRpc ( body:{ attributeId : number, dateVldnById : dateVldn
         validationFound = await this.dropdownValidationRepository.find({
           where: { id: body.dropDownVldnById.id },
         });
+        val = JSON.stringify(validationFound[0])
+        val = JSON.parse(val);
+    
+        return {dropdownVldn : val};
         break;
 
       // 15
@@ -1009,7 +1030,10 @@ async updateValidationRpc ( body:{ attributeId : number, dateVldnById : dateVldn
         validationFound = await this.urlValidationRepository.find({
           where: { id: body.urlVldnById.id },
         });
-
+        val = JSON.stringify(validationFound[0])
+        val = JSON.parse(val);
+    
+        return {urlVldn : val};
         break;
 
       // 16
@@ -1021,6 +1045,10 @@ async updateValidationRpc ( body:{ attributeId : number, dateVldnById : dateVldn
         validationFound = await this.rangeValidationRepository.find({
           where: { id: body.rangeVldnById.id },
         });
+        val = JSON.stringify(validationFound[0])
+        val = JSON.parse(val);
+    
+        return {rangeVldn : val};
         break;
 
       // 17
@@ -1032,6 +1060,10 @@ async updateValidationRpc ( body:{ attributeId : number, dateVldnById : dateVldn
         validationFound = await this.rangeValidationRepository.find({
           where: { id: body.rangeVldnById.id },
         });
+        val = JSON.stringify(validationFound[0])
+        val = JSON.parse(val);
+    
+        return {rangeVldn : val};
         break;
 
       // 18
@@ -1049,7 +1081,6 @@ async updateValidationRpc ( body:{ attributeId : number, dateVldnById : dateVldn
 
 
 
-    return val;
 
   }
 
