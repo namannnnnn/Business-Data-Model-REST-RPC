@@ -166,3 +166,47 @@ export class AttributeGrpcController {
     }
 
 }
+
+@Controller()
+export class AttributeGroupGrpcController {
+
+    @Inject(AttributeService)
+    private readonly service: AttributeService;
+
+    @Inject(ValidationService)
+    private readonly validationService: ValidationService;
+
+    @GrpcMethod('AttributeGroupService', 'CreateAttributeGroup')
+    private async createAttributeGroup( attrGroupReqDto: attrGroupReqDto): Promise<any> {
+      const res = await this.service.createAttributeGroups(attrGroupReqDto);
+      return res;
+    }
+
+    @GrpcMethod('AttributeGroupService', 'GetAttributeGroup')
+    private async getAttributeGroup(body :{ id: number }): Promise<any> {
+      const res = await this.service.getAttributeGroups(body.id);
+      return res;
+    }
+
+    
+    @GrpcMethod('AttributeGroupService', 'CreateAttributeGroupByCategory')
+    
+
+    @GrpcMethod('AttributeGroupService', 'GetAttributeGroupByCategory')
+
+    @GrpcMethod('AttributeGroupService', 'GetAllAttributeGroup')
+
+    @GrpcMethod('AttributeGroupService', 'AssignAttributesToAttributeGroup')
+
+    @GrpcMethod('AttributeGroupService', 'RemoveAttributesToAttributeGroup')
+
+    @GrpcMethod('AttributeGroupService', 'UpdateAttributeGroup')
+
+    @GrpcMethod('AttributeGroupService', 'DeleteAttributeGroup')
+
+    @GrpcMethod('AttributeGroupService', 'MapAttributeGroupToCategory')
+
+    @GrpcMethod('AttributeGroupService', 'GetAttributeGroupsByCategory')
+
+
+}

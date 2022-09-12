@@ -61,7 +61,7 @@ service AttributeGroupService {
     rpc UpdateAttributeGroup(MasterId) returns (google.protobuf.Empty);
     rpc DeleteAttributeGroup(MasterId) returns (google.protobuf.Empty);
     rpc MapAttributeGroupToCategory(MapAttribute) returns (AttributeGroupResponse);
-    rpc GetAttributeGroupsByCategory(MapAttribute) returns (AttributeGroupResponse);
+    rpc GetAttributeGroupsByCategory(MasterId) returns (AttributeGroupResponse);
 
 
 }
