@@ -49,6 +49,10 @@ import {
   attributeDtoRpc
 } from "../dtos/attribute.dto";
 import { Attribute, AttributeGroup } from "../entities/attribute.entity";
+import * as path from 'path'
+import * as excelReader from 'xlsx'
+
+
 
 @Injectable()
 export class AttributeService {
@@ -719,5 +723,20 @@ export class AttributeService {
     let attributes = JSON.stringify(ats);
     attributes = JSON.parse(attributes);
     return attributes;
+  }
+
+  async timepass ():Promise<any> {
+    const filePath = path.resolve(__dirname, '/Users/dhavalparmar/Desktop/PIM/bdm-rest-rpc/src/templates/attributes.xlsx')
+    const file = excelReader.readFile(filePath)
+    let data = []
+    const sheets = file.SheetNames
+    for(let i = 0; i < sheets.length; i++){
+    const temp = excelReader.utils.sheet_to_json(file.Sheets[file.SheetNames[i]])
+    temp.forEach((res) => {data.push(res)})
+    }
+
+
+    console.log(data)
+    return data
   }
 }

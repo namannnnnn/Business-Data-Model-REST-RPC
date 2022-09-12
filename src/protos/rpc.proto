@@ -67,4 +67,5 @@ service AttributeGroupService {
 service PhysicalDataModelService {
     rpc CreatePhysicalDataModel(MasterId) returns (google.protobuf.Empty);
     rpc GetPhysicalDataModel(MasterId) returns (PhysicalDataModel);
+    rpc Timepass ( google.protobuf.Empty) returns (google.protobuf.Empty);
 }

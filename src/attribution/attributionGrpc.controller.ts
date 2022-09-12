@@ -270,4 +270,9 @@ export class PdmGrpcController {
     return res;
   }
 
+  @GrpcMethod('PhysicalDataModelService', 'Timepass')
+  private async timepass(): Promise<any> {
+    await this.service.timepass();
+  }
+
 }
