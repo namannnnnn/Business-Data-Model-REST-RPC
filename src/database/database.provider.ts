@@ -1,21 +1,23 @@
 /* eslint-disable */
 
-import { DataSource } from "typeorm";
-import { TypeOrmModuleOptions } from "@nestjs/typeorm";
-import { PdmTables } from "../entities/pdmTables.entity";
+import { DataSource } from 'typeorm';
+import { TypeOrmModuleOptions } from '@nestjs/typeorm';
+import { PdmTables } from '../Entities/pdmTables.entity';
 
 export const databaseProviders = [
   {
-    provide: "DATA_SOURCE",
+    provide: 'DATA_SOURCE',
     useFactory: async () => {
       const dataSource = new DataSource({
-        type: "postgres",
-        host: "localhost",
+        type: 'postgres',
+        host: 'localhost',
         port: 5432,
-        username: "postgres",
-        password: "1234",
-        database: "BDM-rest",
-        entities: ["dist/**/*.entity{.ts,.js}"],
+        username: 'postgres',
+        password: '1234',
+        database: 'BDM-rest',
+        entities: ['dist/**/*.entity{.ts,.js}'],
+        // Entities: ['src/**/*.entity.ts'],
+
         migrations: [],
         synchronize: true,
       });
@@ -25,12 +27,12 @@ export const databaseProviders = [
 ];
 
 export const PhysicalDataModel: TypeOrmModuleOptions = {
-  type: "postgres",
-  host: "localhost",
+  type: 'postgres',
+  host: 'localhost',
   port: 5432,
-  username: "postgres",
-  password: "1234",
-  database: "PDM-rest",
+  username: 'postgres',
+  password: '1234',
+  database: 'PDM-rest',
   entities: [PdmTables],
   synchronize: true,
 };

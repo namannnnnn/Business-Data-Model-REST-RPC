@@ -19,7 +19,7 @@ import { CategoryGroupAssignment } from "./categoryGroupAssignment.entity";
 
 @Entity("categories")
 export class Category {
-  @PrimaryGeneratedColumn()
+  @PrimaryColumn()
   id: number;
 
   @Column({ nullable: true })

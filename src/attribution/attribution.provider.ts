@@ -1,9 +1,9 @@
 /* eslint-disable */
 
-import { DataSource } from "typeorm";
-import { ReferenceAttributes } from "../entities/referenceAttribute.entity";
-import { ReferenceMaster } from "../entities/master.entity";
-import { Attribute, AttributeGroup } from "../entities/attribute.entity";
+import { DataSource } from 'typeorm';
+import { ReferenceAttributes } from '../Entities/referenceAttribute.entity';
+import { ReferenceMaster } from '../Entities/master.entity';
+import { Attribute, AttributeGroup } from '../Entities/attribute.entity';
 // import { CategoryAssignment } from 'src/Entities/categoryAssignment.entity';
 // import { ProductAssignment } from 'src/Entities/productAssignment.entity';
 // import { ProductComboAssignment } from 'src/Entities/productComboAssignment.entity';
@@ -12,26 +12,26 @@ import { Attribute, AttributeGroup } from "../entities/attribute.entity";
 
 export const attributeProviders = [
   {
-    provide: "ATTRIBUTE_REFERENCE_REPOSITORY",
+    provide: 'ATTRIBUTE_REFERENCE_REPOSITORY',
     useFactory: (dataSource: DataSource) =>
       dataSource.getRepository(ReferenceAttributes),
-    inject: ["DATA_SOURCE"],
+    inject: ['DATA_SOURCE'],
   },
   {
-    provide: "MASTER_REFERENCE_REPOSITORY",
+    provide: 'MASTER_REFERENCE_REPOSITORY',
     useFactory: (dataSource: DataSource) =>
       dataSource.getRepository(ReferenceMaster),
-    inject: ["DATA_SOURCE"],
+    inject: ['DATA_SOURCE'],
   },
   {
-    provide: "ATTRIBUTEGROUP_REPOSITORY",
+    provide: 'ATTRIBUTEGROUP_REPOSITORY',
     useFactory: (dataSource: DataSource) =>
       dataSource.getRepository(AttributeGroup),
-    inject: ["DATA_SOURCE"],
+    inject: ['DATA_SOURCE'],
   },
   {
-    provide: "ATTRIBUTE_REPOSITORY",
+    provide: 'ATTRIBUTE_REPOSITORY',
     useFactory: (dataSource: DataSource) => dataSource.getRepository(Attribute),
-    inject: ["DATA_SOURCE"],
+    inject: ['DATA_SOURCE'],
   },
 ];

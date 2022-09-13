@@ -38,6 +38,7 @@ service ReferenceAttributeService {
 
 service AttributeService {
     rpc CreateAttribute (Attribute) returns  (AttributeResponse);
+    rpc BulkUploadAttribute(google.protobuf.Empty) returns (google.protobuf.Empty);
     rpc CreateAttributeByCategory(AttributeByCategory) returns (AttributeResponse);
     rpc GetAttribute (MasterId) returns  (AttributeResponse);
     rpc FetchReferenceAttribute(MasterId) returns (Attributes);
@@ -54,8 +55,9 @@ service AttributeGroupService {
     rpc CreateAttributeGroup(AttributeGroup) returns (AttributeGroupRes);
     rpc GetAttributeGroup(MasterId) returns (AttributeGroupRes);
     rpc CreateAttributeGroupByCategory(AttributeGroupCat) returns (AttributeGroupRes);
+    rpc BulkUploadAttributeGroup(google.protobuf.Empty) returns (google.protobuf.Empty);
     rpc GetAttributeGroupByCategory(MasterId) returns (AttributeGroupRes);
-    rpc GetAllAttributeGroup(google.protobuf.Empty) returns (Attributes);
+    rpc GetAllAttributeGroup(google.protobuf.Empty) returns (AttributeGroups);
     rpc AssignAttributesToAttributeGroup(MapAttribute) returns (AttributeGroupResponse);
     rpc RemoveAttributesToAttributeGroup(MapAttribute) returns (AttributeGroupResponse);
     rpc UpdateAttributeGroup(UpdateAttributeGroups) returns (AttributeGroupResponse);

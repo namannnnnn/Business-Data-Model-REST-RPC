@@ -43,3 +43,7 @@ message AttributeGroupResponse {
     string createdAt = 4;
     string updatedAt = 5;
 }
+
+message AttributeGroups {
+    repeated AttributeGroupResponse attributeGroups = 1;
+}

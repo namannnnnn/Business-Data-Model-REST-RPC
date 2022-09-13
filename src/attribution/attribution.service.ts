@@ -1,6 +1,6 @@
 /* eslint-disable */
 
-import { Injectable, Inject } from "@nestjs/common";
+import { Injectable, Inject } from '@nestjs/common';
 import {
   Repository,
   QueryRunner,
@@ -8,7 +8,7 @@ import {
   DataSource,
   In,
   getManager,
-} from "typeorm";
+} from 'typeorm';
 import {
   dateVldn,
   boolVldn,
@@ -20,22 +20,22 @@ import {
   multipleSelectionVldn,
   dropDownVldn,
   urlVldn,
-} from "src/dtos/validation.dto";
-import { CategoryAssignment } from "src/entities/categoryAssignment.entity";
-import { Category } from "../entities/category.entity";
-import { CategoryGroupAssignment } from "src/entities/categoryGroupAssignment.entity";
+} from 'src/dtos/validation.dto';
+import { CategoryAssignment } from 'src/Entities/categoryAssignment.entity';
+import { Category } from '../Entities/category.entity';
+import { CategoryGroupAssignment } from 'src/Entities/categoryGroupAssignment.entity';
 import {
   categoryMapReqDto,
   categoryMapGroupReqDto,
-} from "../dtos/category.dto";
-import { InjectDataSource, InjectRepository } from "@nestjs/typeorm";
-import { v4 as uuidv4 } from "uuid";
-import { ReferenceAttributes } from "../entities/referenceAttribute.entity";
-import { ValidationService } from "./validation.service";
+} from '../dtos/category.dto';
+import { InjectDataSource, InjectRepository } from '@nestjs/typeorm';
+import { v4 as uuidv4 } from 'uuid';
+import { ReferenceAttributes } from '../Entities/referenceAttribute.entity';
+import { ValidationService } from './validation.service';
 // import { Rule } from '../iterfaces/rules.interface'
 // import { AttributeGroup } from 'src/Entities/attributeGroup.entity'
-import { ReferenceMaster } from "src/entities/master.entity";
-import { refAttrByIdDto, refAttrDto } from "src/dtos/referenceAttribute.dto";
+import { ReferenceMaster } from 'src/Entities/master.entity';
+import { refAttrByIdDto, refAttrDto } from 'src/dtos/referenceAttribute.dto';
 import {
   attrDto,
   attrCatDto,
@@ -46,13 +46,11 @@ import {
   attrGroupReqDto,
   attrGroupResDto,
   assignAttr,
-  attributeDtoRpc
-} from "../dtos/attribute.dto";
-import { Attribute, AttributeGroup } from "../entities/attribute.entity";
-import * as path from 'path'
-import * as excelReader from 'xlsx'
-
-
+  attributeDtoRpc,
+} from '../dtos/attribute.dto';
+import { Attribute, AttributeGroup } from '../Entities/attribute.entity';
+import * as path from 'path';
+import * as excelReader from 'xlsx';
 
 @Injectable()
 export class AttributeService {
@@ -60,71 +58,133 @@ export class AttributeService {
     @Inject(ValidationService)
     private readonly validationService: ValidationService,
 
-    @Inject("ATTRIBUTE_REPOSITORY")
+    @Inject('ATTRIBUTE_REPOSITORY')
     private attributeRepository: Repository<Attribute>,
 
-    @Inject("ATTRIBUTEGROUP_REPOSITORY")
+    @Inject('ATTRIBUTEGROUP_REPOSITORY')
     private attributeGroupRepository: Repository<AttributeGroup>,
 
-    @Inject("ATTRIBUTE_REFERENCE_REPOSITORY")
+    @Inject('ATTRIBUTE_REFERENCE_REPOSITORY')
     private attributeReferenceRepository: Repository<ReferenceAttributes>,
 
-    @Inject("CATEGORY_REPOSITORY")
+    @Inject('CATEGORY_REPOSITORY')
     private categoryRepository: Repository<Category>,
 
-    @Inject("CATEGORY_ASSIGNMENT_REPOSITORY")
+    @Inject('CATEGORY_ASSIGNMENT_REPOSITORY')
     private categoryAssignmentRepository: Repository<CategoryAssignment>,
 
-    @Inject("CATEGORY_GROUP_ASSIGNMENT_REPOSITORY")
+    @Inject('CATEGORY_GROUP_ASSIGNMENT_REPOSITORY')
     private categoryGroupAssignmentRepository: Repository<CategoryGroupAssignment>,
 
-    @Inject("MASTER_REFERENCE_REPOSITORY")
-    private masterReferenceRepository: Repository<ReferenceMaster>
+    @Inject('MASTER_REFERENCE_REPOSITORY')
+    private masterReferenceRepository: Repository<ReferenceMaster>,
   ) {}
 
-  async createAttributesRpc(body : { attributeName: string, labelDescription: string, labelName: string, attributeType: string, constraint: boolean, masterId: number, referenceMasterId: number , attributeGroupId:number, textVldn : textVldn, numericVldn: numericVldn, dateVldn : dateVldn, timeVldn : timeVldn, rangeVldn : rangeVldn, singleSelectVldn: singleSelectVldn, multipleSelectionVldn : multipleSelectionVldn, dropDownVldn : dropDownVldn, urlVldn : urlVldn, status:boolean }): Promise<any> {
-    if(body.constraint = false){
-      body.referenceMasterId = null
+  async createAttributesRpc(body: {
+    attributeName: string;
+    labelDescription: string;
+    labelName: string;
+    attributeType: string;
+    constraint: boolean;
+    masterId: number;
+    referenceMasterId: number;
+    attributeGroupId: number;
+    textVldn: textVldn;
+    numericVldn: numericVldn;
+    dateVldn: dateVldn;
+    timeVldn: timeVldn;
+    rangeVldn: rangeVldn;
+    singleSelectVldn: singleSelectVldn;
+    multipleSelectionVldn: multipleSelectionVldn;
+    dropDownVldn: dropDownVldn;
+    urlVldn: urlVldn;
+    status: boolean;
+  }): Promise<any> {
+    if ((body.constraint = false)) {
+      body.referenceMasterId = null;
     }
     let attributes = await this.attributeRepository.save({
-      "tenantId": 1,
-      "attributeName": body.attributeName,
-      "labelName": body.labelName,
-      "labelDescription": body.labelDescription,
-      "attributeType": body.attributeType,
-      "constraint": body.constraint,
-      "masterId": body.masterId,
-      "referenceMasterId": body.referenceMasterId,
-      "attributeGroupId": body.attributeGroupId,
-      "status": body.status,
+      tenantId: 1,
+      attributeName: body.attributeName,
+      labelName: body.labelName,
+      labelDescription: body.labelDescription,
+      attributeType: body.attributeType,
+      constraint: body.constraint,
+      masterId: body.masterId,
+      referenceMasterId: body.referenceMasterId,
+      attributeGroupId: body.attributeGroupId,
+      status: body.status,
     });
 
-    await this.validationService.assignValidationRpc( body.attributeType, body.dateVldn, body.rangeVldn, body.singleSelectVldn, body.textVldn, body.numericVldn, body.timeVldn, body.multipleSelectionVldn, body.dropDownVldn, body.urlVldn , attributes.id )
+    await this.validationService.assignValidationRpc(
+      body.attributeType,
+      body.dateVldn,
+      body.rangeVldn,
+      body.singleSelectVldn,
+      body.textVldn,
+      body.numericVldn,
+      body.timeVldn,
+      body.multipleSelectionVldn,
+      body.dropDownVldn,
+      body.urlVldn,
+      attributes.id,
+    );
 
     return attributes;
   }
 
-  async createAttributesByCategpriesRpc(body : { attributeName: string, labelDescription: string, labelName: string, attributeType: string, constraint: boolean, masterId: number, referenceMasterId: number , attributeGroupId:number, categoryId: number,textVldn : textVldn, numericVldn: numericVldn, dateVldn : dateVldn, timeVldn : timeVldn, rangeVldn : rangeVldn, singleSelectVldn: singleSelectVldn, multipleSelectionVldn : multipleSelectionVldn, dropDownVldn : dropDownVldn, urlVldn : urlVldn, status:boolean }): Promise<any> {
-    if(body.constraint = false){
-      body.referenceMasterId = null
+  async createAttributesByCategpriesRpc(body: {
+    attributeName: string;
+    labelDescription: string;
+    labelName: string;
+    attributeType: string;
+    constraint: boolean;
+    masterId: number;
+    referenceMasterId: number;
+    attributeGroupId: number;
+    categoryId: number;
+    textVldn: textVldn;
+    numericVldn: numericVldn;
+    dateVldn: dateVldn;
+    timeVldn: timeVldn;
+    rangeVldn: rangeVldn;
+    singleSelectVldn: singleSelectVldn;
+    multipleSelectionVldn: multipleSelectionVldn;
+    dropDownVldn: dropDownVldn;
+    urlVldn: urlVldn;
+    status: boolean;
+  }): Promise<any> {
+    if ((body.constraint == false)) {
+      body.referenceMasterId = null;
     }
     let attributes = await this.attributeRepository.save({
-      "tenantId": 1,
-      "attributeName": body.attributeName,
-      "labelName": body.labelName,
-      "labelDescription": body.labelDescription,
-      "attributeType": body.attributeType,
-      "constraint": body.constraint,
-      "masterId": body.masterId,
-      "referenceMasterId": body.referenceMasterId,
-      "attributeGroupId": body.attributeGroupId,
-      "categoryId":body.categoryId,
-      "status": body.status,
+      tenantId: 1,
+      attributeName: body.attributeName,
+      labelName: body.labelName,
+      labelDescription: body.labelDescription,
+      attributeType: body.attributeType,
+      constraint: body.constraint,
+      masterId: body.masterId,
+      referenceMasterId: body.referenceMasterId,
+      attributeGroupId: body.attributeGroupId,
+      categoryId: body.categoryId,
+      status: body.status,
     });
-    await this.categoryRepository.save({ id: body.categoryId  })
+    await this.categoryRepository.save({ id: body.categoryId });
 
-
-    await this.validationService.assignValidationRpc( body.attributeType, body.dateVldn, body.rangeVldn, body.singleSelectVldn, body.textVldn, body.numericVldn, body.timeVldn, body.multipleSelectionVldn, body.dropDownVldn, body.urlVldn , attributes.id )
+    await this.validationService.assignValidationRpc(
+      body.attributeType,
+      body.dateVldn,
+      body.rangeVldn,
+      body.singleSelectVldn,
+      body.textVldn,
+      body.numericVldn,
+      body.timeVldn,
+      body.multipleSelectionVldn,
+      body.dropDownVldn,
+      body.urlVldn,
+      attributes.id,
+    );
     await this.categoryAssignmentRepository.save({
       attributeId: attributes[0].id,
       categoryId: body.categoryId,
@@ -132,7 +192,6 @@ export class AttributeService {
     });
 
     return attributes;
-
   }
 
   async createAttributes(attrDto: attrDto): Promise<any> {
@@ -157,15 +216,13 @@ export class AttributeService {
     await this.validationService.assignValidation(
       attrDto.attributeType,
       attrDto.validation,
-      attributes.id
+      attributes.id,
     );
 
     return { attributes };
   }
 
   async createAttributeByCategories(attrCatDto: attrCatDto): Promise<any> {
-    
-
     if (attrCatDto.constraint == true) {
       attrCatDto.referenceMasterId;
     } else {
@@ -187,9 +244,9 @@ export class AttributeService {
     await this.validationService.assignValidation(
       attrCatDto.attributeType,
       attrCatDto.validation,
-      attributes.id
+      attributes.id,
     );
-    await this.categoryRepository.save({ id: attrCatDto.categoryId  })
+    await this.categoryRepository.save({ id: attrCatDto.categoryId });
 
     await this.categoryAssignmentRepository.save({
       attributeId: attributes[0].id,
@@ -197,6 +254,96 @@ export class AttributeService {
       grouping: false,
     });
     return { attributes };
+  }
+
+  async bulkUploadAttributes ( ):Promise<any> {
+    let data = [];
+    data = await this.sheetFileReader();
+   
+
+    let attributeNames = data.map((x) => x['Attribute Name']);
+    let labelNames = data.map((x) => x['Label Name']);
+    let labelDescription = data.map((x) => x['Label Description']);
+    let attributeTypes = data.map((x) => x['Attribute Type']);
+    let mandatoryAttributes = data.map((x) => x['Mandatory']);
+    let constraint = data.map((x) => x['Constraint']);
+    let referenceMasters = data.map((x) => x['Reference Master'])
+    let status = data.map((x) => x['Status']);
+    let tenantId = 1;
+    let masterId = 1;
+    for (let i = 0; i < attributeNames.length; i++) {
+
+
+      if(constraint[i] == true) {
+
+        let refMasterId  = await this.masterReferenceRepository.find({ select : { id : true }, where : { masterEntityName : referenceMasters[i] } })
+        let att = await this.attributeRepository.save({
+          tenantId: tenantId,
+          attributeName: attributeNames[i],
+          labelDescription: labelDescription[i],
+          labelName: labelNames[i],
+          attributeType: attributeTypes[i],
+          constraint: constraint[i],
+          masterId: masterId,
+          referenceMasterId : refMasterId[0].id,
+          status: status[i],
+        });
+        await this.validationService.assignValidation(attributeTypes[i],null,att.id)
+      } else {
+
+      let att = await this.attributeRepository.save({
+        tenantId: tenantId,
+        attributeName: attributeNames[i],
+        labelDescription: labelDescription[i],
+        labelName: labelNames[i],
+        attributeType: attributeTypes[i],
+        constraint: constraint[i],
+        masterId: masterId,
+        status: status[i],
+      });
+      await this.validationService.assignValidation(attributeTypes[i],null,att.id)
+
+    }
+    }
+    return data;
+  }
+
+  async sheetFileReader():Promise<any> {
+    const filePath = path.resolve(
+      __dirname,
+      '/Users/dhavalparmar/Desktop/PIM/bdm-rest-rpc/src/templates/attributes.xlsx',
+    );
+    const file = excelReader.readFile(filePath);
+    let data = [];
+    const sheets = file.SheetNames;
+    for (let i = 0; i < sheets.length; i++) {
+      const temp = excelReader.utils.sheet_to_json(
+        file.Sheets[file.SheetNames[i]],
+      );
+      temp.forEach((res) => {
+        data.push(res);
+      });
+    }
+    return data;
+  }
+
+  async sheetFileReaderGroup():Promise<any> {
+    const filePath = path.resolve(
+      __dirname,
+      '/Users/dhavalparmar/Desktop/PIM/bdm-rest-rpc/src/templates/attributeGroup.xlsx',
+    );
+    const file = excelReader.readFile(filePath);
+    let data = [];
+    const sheets = file.SheetNames;
+    for (let i = 0; i < sheets.length; i++) {
+      const temp = excelReader.utils.sheet_to_json(
+        file.Sheets[file.SheetNames[i]],
+      );
+      temp.forEach((res) => {
+        data.push(res);
+      });
+    }
+    return data;
   }
 
   async getAttributesForCategory(id: number) {
@@ -232,7 +379,7 @@ export class AttributeService {
   async updateAttributes(attrByIdDto: attrByIdDto): Promise<any> {
     const attributes = await this.attributeRepository.update(
       { id: attrByIdDto.id },
-      { ...attrByIdDto }
+      { ...attrByIdDto },
     );
     const attribute = await this.getAttributes(attrByIdDto.id);
     let attribut = JSON.stringify(attribute.attributes);
@@ -297,7 +444,7 @@ export class AttributeService {
   }
 
   async createAttributeGroupByCategories(
-    attrGroupReqCatDto: attrGroupReqCatDto
+    attrGroupReqCatDto: attrGroupReqCatDto,
   ): Promise<any> {
     attrGroupReqCatDto.tenantId = 1;
     const attributeGroups = await this.attributeGroupRepository.save({
@@ -357,23 +504,23 @@ export class AttributeService {
     return attrGroupRes;
   }
 
-  async createAttributeGroupRpc( body:{ "attributeGroupName" : string, "status": boolean, "tenantId":number,attributes : Array<attributeDtoRpc> } ): Promise<any> {
-    
-    
+  async createAttributeGroupRpc(body: {
+    attributeGroupName: string;
+    status: boolean;
+    tenantId: number;
+    attributes: Array<attributeDtoRpc>;
+  }): Promise<any> {
     body.tenantId = 1;
     const attributeGroups = await this.attributeGroupRepository.save({
       tenantId: body.tenantId,
       attributeGroupName: body.attributeGroupName,
       status: body.status,
     });
-    if (
-      body.attributes &&
-      body.attributes.length > 0
-    ) {
-        // const setAttributes = await body.ids.map(async(i) => { await this.attributeRepository.update({ id : i.id }, { attributeGroupId : attributeGroups.id }) })
+    if (body.attributes && body.attributes.length > 0) {
+      // const setAttributes = await body.ids.map(async(i) => { await this.attributeRepository.update({ id : i.id }, { attributeGroupId : attributeGroups.id }) })
       for (let i = 0; i < body.attributes.length; i++) {
         // attrGroupReqCatDto.attributes[i].attributeGroupId = attributeGroups.id;
-        body.attributes[i].attributeGroupId = attributeGroups.id
+        body.attributes[i].attributeGroupId = attributeGroups.id;
 
         await this.createAttributesRpc(body.attributes[i]);
       }
@@ -395,10 +542,7 @@ export class AttributeService {
     attrGroupRes.createdAt = attributeGroups.createdAt;
     attrGroupRes.updatedAt = attributeGroups.updatedAt;
 
-    if (
-      body.attributes &&
-      body.attributes.length > 0
-    ) {
+    if (body.attributes && body.attributes.length > 0) {
       const arrayAtts: attrByIdResDto[] = [];
       for (let j = 0; j < attributeGroup[0].attributes.length; j++) {
         let at;
@@ -411,28 +555,132 @@ export class AttributeService {
       attrGroupRes.attributes = arrayAtts;
     }
 
-    
     return attrGroupRes;
-
   }
 
-  async createAttributeGroupByCategoriesRpc( body:{ "attributeGroupName" : string, "status": boolean, "categoryId":number, "tenantId":number,attributes : Array<attributeDtoRpc> } ): Promise<any> {
+  async bulkUploadAttributeGroup ():Promise<any> {
     
+      let data = [];
+      data = await this.sheetFileReaderGroup();
+     
+  
+      let attributeNames = data.map((x) => x['Attribute Name']);
+      console.log(attributeNames)
+      let labelNames = data.map((x) => x['Label Name']);
+      let labelDescription = data.map((x) => x['Label Description']);
+      let attributeTypes = data.map((x) => x['Attribute Type']);
+      let mandatoryAttributes = data.map((x) => x['Mandatory']);
+      let constraint = data.map((x) => x['Constraint']);
+      let attributeGroups = data.map((x) => x['Attribute Group'])
+      let referenceMasters = data.map((x) => x['Reference Master'])
+      let status = data.map((x) => x['Status']);
+      let tenantId = 1;
+      let masterId = 1;
+      for (let i = 0; i < attributeNames.length; i++) {
+        
+        let attGrExists = await this.attributeGroupRepository.find({ where : {  attributeGroupName: attributeGroups[i]  } })
+        console.log(attGrExists)
+        if(attGrExists != undefined && attGrExists.length != 0) { 
+
+        if(constraint[i] == true) {
+  
+          let refMasterId  = await this.masterReferenceRepository.find({ select : { id : true }, where : { masterEntityName : referenceMasters[i] } })
+          
+          
+          let att = await this.attributeRepository.save({
+            tenantId: tenantId,
+            attributeName: attributeNames[i],
+            labelDescription: labelDescription[i],
+            labelName: labelNames[i],
+            attributeType: attributeTypes[i],
+            constraint: constraint[i],
+            masterId: masterId,
+            attributeGroupId : attGrExists[0].id,
+            referenceMasterId : refMasterId[0].id,
+            status: status[i],
+          });
+          await this.validationService.assignValidation(attributeTypes[i],null,att.id)
+        } else {
+  
+        let att = await this.attributeRepository.save({
+          tenantId: tenantId,
+          attributeName: attributeNames[i],
+          labelDescription: labelDescription[i],
+          labelName: labelNames[i],
+          attributeType: attributeTypes[i],
+          attributeGroupId : attGrExists[0].id,
+          constraint: constraint[i],
+          masterId: masterId,
+          status: status[i],
+        });
+        await this.validationService.assignValidation(attributeTypes[i],null,att.id)
+  
+      }
+        }
+        else {
+          let attrGroup = await this.attributeGroupRepository.save ( { "tenantId": tenantId, "attributeGroupName" : attributeGroups[i], "status" : true})
+          console.log(attrGroup)
+
+        if(constraint[i] == true) {
+  
+          let refMasterId  = await this.masterReferenceRepository.find({ select : { id : true }, where : { masterEntityName : referenceMasters[i] } })
+          
+          
+          let att = await this.attributeRepository.save({
+            tenantId: tenantId,
+            attributeName: attributeNames[i],
+            labelDescription: labelDescription[i],
+            labelName: labelNames[i],
+            attributeType: attributeTypes[i],
+            constraint: constraint[i],
+            masterId: masterId,
+            attributeGroupId : attrGroup.id,
+            referenceMasterId : refMasterId[0].id,
+            status: status[i],
+          });
+          await this.validationService.assignValidation(attributeTypes[i],null,att.id)
+        } else {
+  
+        let att = await this.attributeRepository.save({
+          tenantId: tenantId,
+          attributeName: attributeNames[i],
+          labelDescription: labelDescription[i],
+          labelName: labelNames[i],
+          attributeType: attributeTypes[i],
+          attributeGroupId : attrGroup.id,
+          constraint: constraint[i],
+          masterId: masterId,
+          status: status[i],
+        });
+        await this.validationService.assignValidation(attributeTypes[i],null,att.id)
+  
+      }
+
+        }
+
+      }
+      return data;
     
+  }
+
+  async createAttributeGroupByCategoriesRpc(body: {
+    attributeGroupName: string;
+    status: boolean;
+    categoryId: number;
+    tenantId: number;
+    attributes: Array<attributeDtoRpc>;
+  }): Promise<any> {
     body.tenantId = 1;
     const attributeGroups = await this.attributeGroupRepository.save({
       tenantId: body.tenantId,
       attributeGroupName: body.attributeGroupName,
       status: body.status,
     });
-    if (
-      body.attributes &&
-      body.attributes.length > 0
-    ) {
-        // const setAttributes = await body.ids.map(async(i) => { await this.attributeRepository.update({ id : i.id }, { attributeGroupId : attributeGroups.id }) })
+    if (body.attributes && body.attributes.length > 0) {
+      // const setAttributes = await body.ids.map(async(i) => { await this.attributeRepository.update({ id : i.id }, { attributeGroupId : attributeGroups.id }) })
       for (let i = 0; i < body.attributes.length; i++) {
         // attrGroupReqCatDto.attributes[i].attributeGroupId = attributeGroups.id;
-        body.attributes[i].attributeGroupId = attributeGroups.id
+        body.attributes[i].attributeGroupId = attributeGroups.id;
 
         await this.createAttributesRpc(body.attributes[i]);
       }
@@ -454,10 +702,7 @@ export class AttributeService {
     attrGroupRes.createdAt = attributeGroups.createdAt;
     attrGroupRes.updatedAt = attributeGroups.updatedAt;
 
-    if (
-      body.attributes &&
-      body.attributes.length > 0
-    ) {
+    if (body.attributes && body.attributes.length > 0) {
       const arrayAtts: attrByIdResDto[] = [];
       for (let j = 0; j < attributeGroup[0].attributes.length; j++) {
         let at;
@@ -475,19 +720,19 @@ export class AttributeService {
     const attGroupAssign = new categoryMapGroupReqDto();
     attGroupAssign.id = body.categoryId;
     attGroupAssign.groupId = attributeGroups.id;
-    const attributesss = await this.mapAttributeGroupsToCategories(attGroupAssign);
-    
+    const attributesss = await this.mapAttributeGroupsToCategories(
+      attGroupAssign,
+    );
+
     return attrGroupRes;
-
   }
-
 
   async assignAttributeToAttributeGroups(assignAttr: assignAttr): Promise<any> {
     // const setAttributes =  await assignAttr.attributes.map(async(i) => { await this.attributeRepository.update({ id : i }, { attributeGroupId : assignAttr.id }) })
     for (let i = 0; i < assignAttr.attributes.length; i++) {
       await this.attributeRepository.update(
         { id: assignAttr.attributes[i] },
-        { attributeGroupId: assignAttr.id }
+        { attributeGroupId: assignAttr.id },
       );
     }
     const attgroup = await this.getAttributeGroups(assignAttr.id);
@@ -496,12 +741,12 @@ export class AttributeService {
   }
 
   async removeAttributesFromAttributeGroups(
-    assignAttr: assignAttr
+    assignAttr: assignAttr,
   ): Promise<any> {
     for (let i = 0; i < assignAttr.attributes.length; i++) {
       await this.attributeRepository.update(
         { id: assignAttr.attributes[i] },
-        { attributeGroupId: null }
+        { attributeGroupId: null },
       );
     }
 
@@ -554,7 +799,7 @@ export class AttributeService {
   async updateAttributeGroups(attrGroupById: attrGroupById): Promise<any> {
     const attributeGroup = await this.attributeGroupRepository.update(
       { id: attrGroupById.id },
-      { ...attrGroupById }
+      { ...attrGroupById },
     );
     const attGroup = await this.attributeGroupRepository.find({
       where: { id: attrGroupById.id },
@@ -578,7 +823,7 @@ export class AttributeService {
     let setAttGroupToNull = await attrGroup.attributes.map(async (i) => {
       await this.attributeRepository.update(
         { id: i.id },
-        { attributeGroupId: null }
+        { attributeGroupId: null },
       );
     });
 
@@ -645,11 +890,11 @@ export class AttributeService {
   }
 
   async updateReferenceAttributes(
-    refAttrByIdDto: refAttrByIdDto
+    refAttrByIdDto: refAttrByIdDto,
   ): Promise<any> {
     const attributes = await this.attributeReferenceRepository.update(
       { id: refAttrByIdDto.id },
-      { ...refAttrByIdDto }
+      { ...refAttrByIdDto },
     );
     const attribute = await this.getReferenceAttributes(refAttrByIdDto.id);
     let attribut = JSON.stringify(attribute.attributes);
@@ -665,7 +910,7 @@ export class AttributeService {
   }
 
   async mapAttributesToCategories(
-    categoryMapReqDto: categoryMapReqDto
+    categoryMapReqDto: categoryMapReqDto,
   ): Promise<any> {
     await this.categoryRepository.save({ id: categoryMapReqDto.id });
     for (let i = 0; i < categoryMapReqDto.attIds.length; i++) {
@@ -686,12 +931,12 @@ export class AttributeService {
   }
 
   async mapAttributeGroupsToCategories(
-    categoryMapGroupReqDto: categoryMapGroupReqDto
+    categoryMapGroupReqDto: categoryMapGroupReqDto,
   ): Promise<any> {
-
     const catRes = await this.categoryRepository.save({
       id: categoryMapGroupReqDto.id,
     });
+    console.log(catRes);
     const attGroCat = await this.categoryGroupAssignmentRepository.save({
       categoryId: categoryMapGroupReqDto.id,
       attributeGroupId: categoryMapGroupReqDto.groupId,
@@ -725,18 +970,9 @@ export class AttributeService {
     return attributes;
   }
 
-  async timepass ():Promise<any> {
-    const filePath = path.resolve(__dirname, '/Users/dhavalparmar/Desktop/PIM/bdm-rest-rpc/src/templates/attributes.xlsx')
-    const file = excelReader.readFile(filePath)
-    let data = []
-    const sheets = file.SheetNames
-    for(let i = 0; i < sheets.length; i++){
-    const temp = excelReader.utils.sheet_to_json(file.Sheets[file.SheetNames[i]])
-    temp.forEach((res) => {data.push(res)})
-    }
-
-
-    console.log(data)
-    return data
+  async timepass(): Promise<any> {
+  
   }
+
+  async filterData(data): Promise<any> {}
 }

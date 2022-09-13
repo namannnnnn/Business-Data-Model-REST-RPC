@@ -1,6 +1,6 @@
 /* eslint-disable */
 
-import { Entity, Column, PrimaryColumn, PrimaryGeneratedColumn ,ManyToOne, OneToOne, JoinColumn, OneToMany, CreateDateColumn, UpdateDateColumn} from 'typeorm'
+import { Entity, Column, PrimaryColumn, PrimaryGeneratedColumn ,ManyToOne, OneToOne, JoinColumn, OneToMany, CreateDateColumn, UpdateDateColumn} from 'typeorm';
 import { Master, ReferenceMaster } from './master.entity';
 import { CategoryGroupAssignment } from './categoryGroupAssignment.entity'
 import { CategoryAssignment } from './categoryAssignment.entity'

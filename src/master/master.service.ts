@@ -1,24 +1,24 @@
 /* eslint-disable */
 
-import { Injectable, Inject } from "@nestjs/common";
-import { Repository } from "typeorm";
-import { Master, ReferenceMaster } from "../entities/master.entity";
-import { databaseProviders } from "src/database/database.provider";
+import { Injectable, Inject } from '@nestjs/common';
+import { Repository } from 'typeorm';
+import { Master, ReferenceMaster } from '../Entities/master.entity';
+import { databaseProviders } from 'src/database/database.provider';
 import {
   masterDto,
   masterByIdDto,
   masterReferenceDto,
   masterReferenceByIdDto,
-} from "../dtos/master.dto";
+} from '../dtos/master.dto';
 
 @Injectable()
 export class MasterService {
   constructor(
-    @Inject("MASTER_REPOSITORY")
+    @Inject('MASTER_REPOSITORY')
     private masterRepository: Repository<Master>,
 
-    @Inject("MASTER_REFERENCE_REPOSITORY")
-    private masterReferenceRepository: Repository<ReferenceMaster>
+    @Inject('MASTER_REFERENCE_REPOSITORY')
+    private masterReferenceRepository: Repository<ReferenceMaster>,
   ) {}
 
   async createMasters(masterDto: masterDto): Promise<any> {
@@ -42,7 +42,7 @@ export class MasterService {
   async updateMasters(masterByIdDto: masterByIdDto): Promise<any> {
     const master = await this.masterRepository.update(
       { id: masterByIdDto.id },
-      { ...masterByIdDto }
+      { ...masterByIdDto },
     );
     let masterPost = await this.masterRepository.find({
       where: { id: masterByIdDto.id },
@@ -58,11 +58,11 @@ export class MasterService {
   }
 
   async createReferenceMasters(
-    masterReferenceDto: masterReferenceDto
+    masterReferenceDto: masterReferenceDto,
   ): Promise<any> {
     masterReferenceDto.tenantId = 1;
     const masters = await this.masterReferenceRepository.save(
-      masterReferenceDto
+      masterReferenceDto,
     );
     return { masters };
   }
@@ -83,11 +83,11 @@ export class MasterService {
   }
 
   async updateReferenceMasters(
-    masterReferenceByIdDto: masterReferenceByIdDto
+    masterReferenceByIdDto: masterReferenceByIdDto,
   ): Promise<any> {
     const master = await this.masterReferenceRepository.update(
       { id: masterReferenceByIdDto.id },
-      { ...masterReferenceByIdDto }
+      { ...masterReferenceByIdDto },
     );
     let masterPost = await this.masterReferenceRepository.find({
       where: { id: masterReferenceByIdDto.id },

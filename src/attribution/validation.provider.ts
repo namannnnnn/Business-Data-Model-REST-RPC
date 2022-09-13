@@ -1,9 +1,9 @@
 /* eslint-disable */
 
-import { DataSource } from "typeorm";
-import { ReferenceAttributes } from "../entities/referenceAttribute.entity";
-import { ReferenceMaster } from "../entities/master.entity";
-import { Attribute, AttributeGroup } from "../entities/attribute.entity";
+import { DataSource } from 'typeorm';
+import { ReferenceAttributes } from '../Entities/referenceAttribute.entity';
+import { ReferenceMaster } from '../Entities/master.entity';
+import { Attribute, AttributeGroup } from '../Entities/attribute.entity';
 import {
   TextValidation,
   BooleanValidation,
@@ -15,7 +15,7 @@ import {
   MultipleSelectionValidation,
   DropdownValidation,
   UrlValidation,
-} from "src/entities/validation.entity";
+} from 'src/Entities/validation.entity';
 
 // import { CategoryAssignment } from 'src/Entities/categoryAssignment.entity';
 // import { ProductAssignment } from 'src/Entities/productAssignment.entity';
@@ -25,63 +25,63 @@ import {
 
 export const validationProviders = [
   {
-    provide: "TEXT_VALIDATION_REPOSITORY",
+    provide: 'TEXT_VALIDATION_REPOSITORY',
     useFactory: (dataSource: DataSource) =>
       dataSource.getRepository(TextValidation),
-    inject: ["DATA_SOURCE"],
+    inject: ['DATA_SOURCE'],
   },
   {
-    provide: "NUMERIC_VALIDATION_REPOSITORY",
+    provide: 'NUMERIC_VALIDATION_REPOSITORY',
     useFactory: (dataSource: DataSource) =>
       dataSource.getRepository(NumericValidation),
-    inject: ["DATA_SOURCE"],
+    inject: ['DATA_SOURCE'],
   },
   {
-    provide: "DATE_VALIDATION_REPOSITORY",
+    provide: 'DATE_VALIDATION_REPOSITORY',
     useFactory: (dataSource: DataSource) =>
       dataSource.getRepository(DateValidation),
-    inject: ["DATA_SOURCE"],
+    inject: ['DATA_SOURCE'],
   },
   {
-    provide: "TIME_VALIDATION_REPOSITORY",
+    provide: 'TIME_VALIDATION_REPOSITORY',
     useFactory: (dataSource: DataSource) =>
       dataSource.getRepository(TimeValidation),
-    inject: ["DATA_SOURCE"],
+    inject: ['DATA_SOURCE'],
   },
   {
-    provide: "RANGE_VALIDATION_REPOSITORY",
+    provide: 'RANGE_VALIDATION_REPOSITORY',
     useFactory: (dataSource: DataSource) =>
       dataSource.getRepository(RangeValidation),
-    inject: ["DATA_SOURCE"],
+    inject: ['DATA_SOURCE'],
   },
   {
-    provide: "BOOLEAN_VALIDATION_REPOSITORY",
+    provide: 'BOOLEAN_VALIDATION_REPOSITORY',
     useFactory: (dataSource: DataSource) =>
       dataSource.getRepository(BooleanValidation),
-    inject: ["DATA_SOURCE"],
+    inject: ['DATA_SOURCE'],
   },
   {
-    provide: "SINGLESELECT_VALIDATION_REPOSITORY",
+    provide: 'SINGLESELECT_VALIDATION_REPOSITORY',
     useFactory: (dataSource: DataSource) =>
       dataSource.getRepository(SingleSelectionValidation),
-    inject: ["DATA_SOURCE"],
+    inject: ['DATA_SOURCE'],
   },
   {
-    provide: "MULTISELECT_VALIDATION_REPOSITORY",
+    provide: 'MULTISELECT_VALIDATION_REPOSITORY',
     useFactory: (dataSource: DataSource) =>
       dataSource.getRepository(MultipleSelectionValidation),
-    inject: ["DATA_SOURCE"],
+    inject: ['DATA_SOURCE'],
   },
   {
-    provide: "DROPDOWN_VALIDATION_REPOSITORY",
+    provide: 'DROPDOWN_VALIDATION_REPOSITORY',
     useFactory: (dataSource: DataSource) =>
       dataSource.getRepository(DropdownValidation),
-    inject: ["DATA_SOURCE"],
+    inject: ['DATA_SOURCE'],
   },
   {
-    provide: "URL_VALIDATION_REPOSITORY",
+    provide: 'URL_VALIDATION_REPOSITORY',
     useFactory: (dataSource: DataSource) =>
       dataSource.getRepository(UrlValidation),
-    inject: ["DATA_SOURCE"],
+    inject: ['DATA_SOURCE'],
   },
 ];
