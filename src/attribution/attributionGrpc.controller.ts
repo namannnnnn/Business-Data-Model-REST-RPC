@@ -80,7 +80,10 @@ export class ReferenceAttributeGrpcController {
   @GrpcMethod('ReferenceAttributeService', 'GetReferenceAttributeForMaster')
   private async getReferenceAttributeForMaster(body: {
     id: number;
-  }): Promise<any> {}
+  }): Promise<any> {
+    const res = await this.service.getReferenceAttributeForMaster(body.id);
+    return {referenceAttributes : res};
+  }
 
   @GrpcMethod('ReferenceAttributeService', 'UpdateReferenceAttribute')
   private async updateReferenceAttribute(
@@ -197,6 +200,7 @@ export class AttributeGrpcController {
   @GrpcMethod('AttributeService', 'FindValidation')
   private async findValidation(body: { id: number }): Promise<any> {
     const res = await this.validationService.findValidation(body.id);
+    console.log(res)
     return res;
   }
 
@@ -332,7 +336,9 @@ export class AttributeGroupGrpcController {
   }
 
   @GrpcMethod('AttributeGroupService', 'GetAttributeGroupsByCategory')
-  private async getAttributeGroupsByCategory(): Promise<any> {}
+  private async getAttributeGroupsByCategory(): Promise<any> {
+
+  }
 }
 
 @Controller()

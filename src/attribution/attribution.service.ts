@@ -100,8 +100,11 @@ export class AttributeService {
     urlVldn: urlVldn;
     status: boolean;
   }): Promise<any> {
-    if ((body.constraint = false)) {
+    if (body.constraint == true) {
+      body.referenceMasterId;
+    } else {
       body.referenceMasterId = null;
+
     }
     let attributes = await this.attributeRepository.save({
       tenantId: 1,
@@ -186,7 +189,7 @@ export class AttributeService {
       attributes.id,
     );
     await this.categoryAssignmentRepository.save({
-      attributeId: attributes[0].id,
+      attributeId: attributes.id,
       categoryId: body.categoryId,
       grouping: false,
     });
@@ -195,11 +198,14 @@ export class AttributeService {
   }
 
   async createAttributes(attrDto: attrDto): Promise<any> {
+    console.log((attrDto.constraint == true));
     if (attrDto.constraint == true) {
       attrDto.referenceMasterId;
+      console.log(attrDto)
     } else {
       attrDto.referenceMasterId = null;
     }
+    console.log(attrDto)
     attrDto.tenantId = 1;
     let attributes = await this.attributeRepository.save({
       tenantId: 1,
@@ -850,6 +856,22 @@ export class AttributeService {
     let attr = JSON.parse(att);
 
     return { attributes: attr.referenceAttributes };
+  }
+
+  async getReferenceAttributeForMaster(id:number): Promise<any> {
+    const referencedAttributes = await this.masterReferenceRepository.find({
+      relations: {
+        referenceAttributes: true,
+      },
+      where: {
+        id: id,
+      },
+    });
+
+    let att = JSON.stringify(referencedAttributes[0]);
+    let attr = JSON.parse(att);
+
+    return attr.referenceAttributes ;
   }
 
   async createReferenceAttributes(refAttrDto: refAttrDto): Promise<any> {

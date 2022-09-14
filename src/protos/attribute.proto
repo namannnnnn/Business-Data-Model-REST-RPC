@@ -5,7 +5,6 @@ package BusinessDataModel;
 import "validations.proto";
 import "google/protobuf/empty.proto";
 
-
 message Attribute {
     string attributeName = 1;
     string labelName = 2;

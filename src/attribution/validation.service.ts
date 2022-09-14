@@ -721,6 +721,145 @@ export class ValidationService {
         validationFound = await this.textValidationRepository.find({
           where: { attributeId: attributeId },
         });
+        return { textVldn : validationFound[0] }
+
+        break;
+
+      // 2
+      case 'textArea':
+        validationFound = await this.textValidationRepository.find({
+          where: { attributeId: attributeId },
+        });
+        return { textVldn : validationFound[0] }
+        break;
+
+      // 3
+      case 'numeric':
+        validationFound = await this.numericValidationRepository.find({
+          where: { attributeId: attributeId },
+        });
+        return { numericVldn : validationFound[0] }
+        break;
+
+      // 4
+      case 'boolean':
+        break;
+
+      // 5
+      case 'singleSelect':
+        validationFound = await this.singleSelectValidationRepository.find({
+          where: { attributeId: attributeId },
+        });
+        return { singleSelectVldn : validationFound[0] }
+        break;
+
+      // 6
+      case 'multiSelect':
+        validationFound = await this.multiSelectValidationRepository.find({
+          where: { attributeId: attributeId },
+        });
+        return { multipleSelectionVldn : validationFound[0] }
+
+        break;
+
+      // 7
+      case 'richText':
+        validationFound = await this.textValidationRepository.find({
+          where: { attributeId: attributeId },
+        });
+        return { textVldn : validationFound[0] }
+        break;
+
+      // 8
+      case 'date':
+        validationFound = await this.dateValidationRepository.find({
+          where: { attributeId: attributeId },
+        });
+        return { dateVldn : validationFound[0] }
+        break;
+
+      // 9
+      case 'time':
+        validationFound = await this.timeValidationRepository.find({
+          where: { attributeId: attributeId },
+        });
+        return { timeVldn : validationFound[0] }
+        break;
+
+      // 10
+      case 'email':
+        break;
+
+      // 11
+
+      // 12
+      case 'telephone':
+        break;
+
+      // 13
+      case 'mobileNumber':
+        break;
+
+      // 14
+      case 'dropdown':
+        validationFound = await this.dropdownValidationRepository.find({
+          where: { attributeId: attributeId },
+        });
+        return { dropDownVldn : validationFound[0] }
+        break;
+
+      // 15
+      case 'url':
+        validationFound = await this.urlValidationRepository.find({
+          where: { attributeId: attributeId },
+        });
+        return { urlVldn : validationFound[0] }
+        break;
+
+      // 16
+      case 'numberSlider':
+        validationFound = await this.rangeValidationRepository.find({
+          where: { attributeId: attributeId },
+        });
+        return { rangeVldn : validationFound[0] }
+        break;
+
+      // 17
+      case 'Range':
+        validationFound = await this.rangeValidationRepository.find({
+          where: { attributeId: attributeId },
+        });
+        return { rangeVldn : validationFound[0] }
+        break;
+
+      // 18
+      case 'imageFile':
+        break;
+
+      // 19
+      case 'videoFile':
+        break;
+
+      // 20
+      case 'documentFile':
+        break;
+    }
+    return validationFound;
+  }
+
+  async findValidationPdm(attributeId: number): Promise<any> {
+    const attributeTyp = await this.attributeRepository.find({
+      select: { attributeType: true },
+      where: { id: attributeId },
+    });
+    const attributeType = attributeTyp[0].attributeType;
+    switch (attributeType) {
+      // 1
+      case 'textBox':
+        validationFound = await this.textValidationRepository.find({
+          where: { attributeId: attributeId },
+        });
+
         break;
 
       // 2
@@ -736,7 +875,6 @@ export class ValidationService {
         validationFound = await this.numericValidationRepository.find({
           where: { attributeId: attributeId },
         });
-        console.log('Inside numeric');
 
         break;
 
@@ -1061,7 +1199,6 @@ export class ValidationService {
 
         val = JSON.stringify(validationFound[0]);
         val = JSON.parse(val);
-        console.log(val);
         return { textVldn: val };
         break;
 

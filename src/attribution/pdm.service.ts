@@ -88,7 +88,7 @@ export class PdmService {
     let columnsPdm = [
       {
         name: 'pdm_id',
-        type: 'uuid',
+        type: 'int',
         isPrimary: true,
         isGenerated: true,
         comment: undefined,
@@ -110,7 +110,7 @@ export class PdmService {
       let attribut = await this.attributeRepository.find({
         where: { id: allattributes[i].attributeId },
       });
-      if (attribut[0].constraint === true) {
+      if (attribut[0].constraint == true) {
         let types = await this.createReferenceMasters(
           attribut[0].id,
           categoryId,
@@ -122,7 +122,10 @@ export class PdmService {
         });
         let name = reference[0].masterEntityName.toLowerCase().trim();
         let columnTemp = {
-          name: attribut[0].attributeName.toLowerCase().trim(),
+          name: attribut[0].attributeName
+            .toLowerCase()
+            .trim()
+            .replace(' ', '_'),
           type: types,
           isPrimary: false,
           isGenerated: false,
@@ -130,11 +133,15 @@ export class PdmService {
         };
         columnsPdm.push(columnTemp);
       } else {
-        let validation = await this.validationService.findValidation(
+        let validation = await this.validationService.findValidationPdm(
           attribut[0].id,
         );
         let columnTemp = {
-          name: attribut[0].attributeName.toLowerCase().trim(),
+          name: attribut[0].attributeName
+            .toLowerCase()
+            .trim()
+            .replace(' ', '_'),
+          // VALIDATIONS ------------------------------------------------------------------------------------------------
           type: validation[0].type.toString(),
           isPrimary: false,
           isGenerated: false,
@@ -157,7 +164,8 @@ export class PdmService {
         columns: columnsPdm,
       }),
     );
-    const tsblr = await queryRunner.getTable('PDM_' + tableSuffix);
+
+    const tsblr = await queryRunner.getTable('pdm_' + tableSuffix);
     await queryRunner.release();
   }
 
@@ -173,15 +181,18 @@ export class PdmService {
       where: { id: refMasId },
     });
     const refMasterName = refMaster[0].masterEntityName;
-    const refMasterSmall = refMasterName.toLowerCase();
+    const refMasterSmall = refMasterName.toLowerCase().trim().replace(' ', '');
     const queryRunner = this.pdmDataSource.createQueryRunner();
+    const columnName = refMaster[0].masterColumnName
+      .toLowerCase()
+      .trim()
+      .replace(' ', '');
 
     await queryRunner.connect();
-    let tableName = refMasterName.toLowerCase().trim();
-    const tableSuffix = refMasId.replace(/-/g, '_');
-    tableName = tableName + '_' + tableSuffix;
 
-    // const table = await this.pdmTablesRepository.save({ id:uuidv4(), "categoryId": body.categoryId, "tableName":body.categoryId+'PDM'})
+    let tableName = refMasterSmall + '_' + refMasId;
+
+    console.log(type);
     const table = await queryRunner.manager
       .getRepository(PdmTables)
       .save({ categoryId: categoryId, tableName: tableName });
@@ -189,12 +200,12 @@ export class PdmService {
     let columnsPdm = [
       {
         name: 'rm_id',
-        type: 'varchar',
+        type: 'int',
         isPrimary: true,
         isGenerated: false,
       },
       {
-        name: refMasterSmall,
+        name: columnName,
         type: type,
         isPrimary: false,
         isGenerated: false,
@@ -210,12 +221,12 @@ export class PdmService {
 
     const tsblr = await queryRunner.getTable(tableName);
 
-    console.log(tsblr);
     for (let i = 0; i < refAtts.attributes.length; i++) {
       let name = refAtts.attributes[i].attributeName;
-      let id = uuidv4().replace(/-/g, '');
       await this.pdmDataSource.manager.query(
-        `INSERT INTO ${tableName} (rm_id ,${refMasterSmall}) VALUES ('${id}' ,'${name}')`,
+        `INSERT INTO ${tableName} (rm_id, ${columnName}) VALUES ('${
+          i + 1
+        }','${name}')`,
       );
     }
 
@@ -236,9 +247,10 @@ export class PdmService {
     const queryRunner = this.pdmDataSource.createQueryRunner();
 
     await queryRunner.connect();
-    const tableName = await queryRunner.manager
-      .getRepository(PdmTables)
-      .find({ select: { tableName: true }, where: { categoryId: categoryId } });
+    const tableName = await queryRunner.manager.getRepository(PdmTables).find({
+      select: { tableName: true },
+      where: { categoryId: categoryId, tableName: 'pdm_' + categoryId },
+    });
 
     physicalDataModel.tableName = tableName[0].tableName;
 
