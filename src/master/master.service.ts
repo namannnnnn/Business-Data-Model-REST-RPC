@@ -1,8 +1,9 @@
 /* eslint-disable */
 
 import { Injectable, Inject } from '@nestjs/common';
-import { Repository } from 'typeorm';
+import { Repository, DataSource, Table } from 'typeorm';
 import { Master, ReferenceMaster } from '../Entities/master.entity';
+import { InjectDataSource, InjectRepository } from '@nestjs/typeorm';
 import { databaseProviders } from 'src/database/database.provider';
 import {
   masterDto,
@@ -19,6 +20,9 @@ export class MasterService {
 
     @Inject('MASTER_REFERENCE_REPOSITORY')
     private masterReferenceRepository: Repository<ReferenceMaster>,
+
+    @InjectDataSource('PDM')
+    private pdmDataSource: DataSource,
   ) {}
 
   async createMasters(masterDto: masterDto): Promise<any> {
@@ -101,4 +105,60 @@ export class MasterService {
     const master = await this.masterReferenceRepository.delete({ id: id });
     return {};
   }
+
+  async createReferenceMasterDataModels(id:number): Promise<any> {
+
+    const attrs = await this.masterReferenceRepository.find({
+      relations: {
+        referenceAttributes: true,
+      },
+      where: {
+        id: id,
+      },
+    });
+
+    console.log(attrs[0].referenceAttributes);
+    let referenceAttributes = attrs[0].referenceAttributes
+    let columnsPdm = [
+      {
+        name: 'rm_id',
+        type: 'int',
+        isPrimary: true,
+        isGenerated: true,
+      }]
+
+      for(let i=0;i< referenceAttributes.length; i++){
+
+        let tempColumn = {
+          name : (referenceAttributes[i].attributeName).toLowerCase().trim().replace(' ','_'),
+          type : (referenceAttributes[i].attributeType).toString(),
+          isPrimary : false,
+          isGenerated: false,
+
+        }
+        columnsPdm.push(tempColumn)
+
+
+
+      }
+      console.log(columnsPdm)
+      let tableName = (attrs[0].masterEntityName).toLowerCase().trim().replace(' ','_') + id
+
+      const queryRunner = this.pdmDataSource.createQueryRunner();
+
+      await queryRunner.connect();
+
+      await queryRunner.createTable(
+        new Table({
+          name: tableName,
+          columns: columnsPdm,
+        }),
+      );
+      await queryRunner.release();
+
+      return  referenceAttributes;
+
+
+  }
+
 }

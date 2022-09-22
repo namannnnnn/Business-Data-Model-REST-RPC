@@ -30,6 +30,7 @@ import {
   multipleSelectionVldnById,
   dropDownVldnById,
   urlVldnById,
+  
 } from 'src/dtos/validation.dto';
 
 import { InjectDataSource, InjectRepository } from '@nestjs/typeorm';
@@ -180,6 +181,13 @@ export class ValidationService {
           validation.attributeId = attributeId;
           validation.type = 'boolean';
           await this.boolValidationRepository.save(validation);
+        } else {
+          let tenantId = 1;
+          await this.boolValidationRepository.save({
+            "tenantId": tenantId,
+            "attributeId": attributeId,
+            "type": 'boolean',
+          })
         }
 
         break;
@@ -470,6 +478,19 @@ export class ValidationService {
 
       // 4
       case 'boolean':
+        let tenantId = 1;
+
+        if(boolVldn){
+          await this.boolValidationRepository.save( {"tenantId": tenantId,
+          "attributeId": attributeId,
+          "type": 'boolean'});
+        }else {
+          await this.boolValidationRepository.save({
+            "tenantId": tenantId,
+            "attributeId": attributeId,
+            "type": 'boolean',
+          })
+        }
         break;
 
       // 5
@@ -743,6 +764,10 @@ export class ValidationService {
 
       // 4
       case 'boolean':
+        validationFound = await this.boolValidationRepository.find({
+          where: { attributeId: attributeId },
+        });
+        return { boolVldn : validationFound[0] }
         break;
 
       // 5

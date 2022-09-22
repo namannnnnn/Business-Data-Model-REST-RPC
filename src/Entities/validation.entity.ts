@@ -59,9 +59,9 @@ export class TextValidation {
   })
   public updatedAt: Date;
 
-  @OneToOne(() => Attribute)
-  @JoinColumn()
-  attribute: Attribute;
+  // @OneToOne(() => Attribute)
+  // @JoinColumn()
+  // attribute: Attribute;
 }
 
 @Entity()
@@ -109,9 +109,9 @@ export class NumericValidation {
   })
   public updatedAt: Date;
 
-  @OneToOne(() => Attribute)
-  @JoinColumn()
-  attribute: Attribute;
+  // @OneToOne(() => Attribute)
+  // @JoinColumn()
+  // attribute: Attribute;
 }
 
 @Entity()
@@ -141,9 +141,9 @@ export class BooleanValidation {
   })
   public updatedAt: Date;
 
-  @OneToOne(() => Attribute)
-  @JoinColumn()
-  attribute: Attribute;
+  // @OneToOne(() => Attribute)
+  // @JoinColumn()
+  // attribute: Attribute;
 }
 
 @Entity()
@@ -182,9 +182,9 @@ export class DateValidation {
   })
   public updatedAt: Date;
 
-  @OneToOne(() => Attribute)
-  @JoinColumn()
-  attribute: Attribute;
+  // @OneToOne(() => Attribute)
+  // @JoinColumn()
+  // attribute: Attribute;
 }
 
 @Entity()
@@ -223,9 +223,9 @@ export class TimeValidation {
   })
   public updatedAt: Date;
 
-  @OneToOne(() => Attribute)
-  @JoinColumn()
-  attribute: Attribute;
+  // @OneToOne(() => Attribute)
+  // @JoinColumn()
+  // attribute: Attribute;
 }
 
 @Entity()
@@ -267,9 +267,9 @@ export class RangeValidation {
   })
   public updatedAt: Date;
 
-  @OneToOne(() => Attribute)
-  @JoinColumn()
-  attribute: Attribute;
+  // @OneToOne(() => Attribute)
+  // @JoinColumn()
+  // attribute: Attribute;
 }
 
 @Entity()
@@ -302,9 +302,9 @@ export class SingleSelectionValidation {
   })
   public updatedAt: Date;
 
-  @OneToOne(() => Attribute)
-  @JoinColumn()
-  attribute: Attribute;
+  // @OneToOne(() => Attribute)
+  // @JoinColumn()
+  // attribute: Attribute;
 }
 
 @Entity()
@@ -343,9 +343,9 @@ export class MultipleSelectionValidation {
   })
   public updatedAt: Date;
 
-  @OneToOne(() => Attribute)
-  @JoinColumn()
-  attribute: Attribute;
+  // @OneToOne(() => Attribute)
+  // @JoinColumn()
+  // attribute: Attribute;
 }
 
 @Entity()
@@ -381,9 +381,9 @@ export class DropdownValidation {
   })
   public updatedAt: Date;
 
-  @OneToOne(() => Attribute)
-  @JoinColumn()
-  attribute: Attribute;
+  // @OneToOne(() => Attribute)
+  // @JoinColumn()
+  // attribute: Attribute;
 }
 
 @Entity()
@@ -422,7 +422,7 @@ export class UrlValidation {
   })
   public updatedAt: Date;
 
-  @OneToOne(() => Attribute)
-  @JoinColumn()
-  attribute: Attribute;
+  // @OneToOne(() => Attribute)
+  // @JoinColumn()
+  // attribute: Attribute;
 }

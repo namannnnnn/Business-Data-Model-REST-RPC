@@ -90,6 +90,11 @@ export class ReferenceMasterGrpcController {
         return {};
       }
 
+    @GrpcMethod('ReferenceMasterService', 'CreateReferenceMasterDataModel')
+    private async createReferenceMasterDataModel ( body:{ id: number} ):Promise<any> {
+      const res = await this.service.createReferenceMasterDataModels(body.id);
+      return { referenceAttributes : res}
+    }  
 
 
 }

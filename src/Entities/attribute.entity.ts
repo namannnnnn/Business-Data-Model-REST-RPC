@@ -61,6 +61,12 @@ export class Attribute {
     attributeType: string;
 
     @Column()
+    attributeDataType: string;
+
+    @Column()
+    mandatory: boolean;
+
+    @Column()
     constraint: boolean;
 
     @Column({nullable: true})

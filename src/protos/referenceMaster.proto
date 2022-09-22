@@ -6,8 +6,7 @@ message ReferenceMaster {
     string masterEntityName = 1;
     string masterEntityType = 2;
     string masterEntityDescription = 3;
-    string masterColumnName = 4;
-    bool status = 5;
+    bool status = 4;
 }
 
 message UpdateReferenceMaster {
@@ -15,8 +14,7 @@ message UpdateReferenceMaster {
     string masterEntityName = 2;
     string masterEntityType = 3;
     string masterEntityDescription = 4;
-    string masterColumnName = 5;
-    bool status = 6;
+    bool status = 5;
 }
 
 message ReferenceMasterResponse {
@@ -24,10 +22,9 @@ message ReferenceMasterResponse {
     string masterEntityName = 2;
     string masterEntityType = 3;
     string masterEntityDescription = 4;
-    string masterColumnName = 5;
-    bool status = 6;
-    string createdAt = 7;
-    string updatedAt = 8;
+    bool status = 5;
+    string createdAt = 6;
+    string updatedAt = 7;
 }
 
 message ReferenceMasters {

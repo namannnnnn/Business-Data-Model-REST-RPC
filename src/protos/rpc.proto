@@ -25,6 +25,8 @@ service ReferenceMasterService {
     rpc GetAllReferenceMasters(google.protobuf.Empty) returns(ReferenceMasters);
     rpc UpdateReferenceMaster(UpdateReferenceMaster) returns(ReferenceMasterResponse);
     rpc DeleteReferenceMaster(MasterId) returns(google.protobuf.Empty);
+    rpc CreateReferenceMasterDataModel(MasterId) returns (ReferenceAttributes);
+    rpc UpdateReferenceMasterDataModel(MasterId) returns (ReferenceAttributes);
 }
 
 service ReferenceAttributeService {
@@ -34,6 +36,7 @@ service ReferenceAttributeService {
     rpc GetReferenceAttributeForMaster(MasterId) returns (ReferenceAttributes);
     rpc UpdateReferenceAttribute(UpdateReferenceAttribute) returns (ReferenceAttributeResponse);
     rpc DeleteReferenceAttribute(MasterId) returns (google.protobuf.Empty);
+    
 }
 
 service AttributeService {

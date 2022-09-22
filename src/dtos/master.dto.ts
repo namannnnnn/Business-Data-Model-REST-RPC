@@ -25,7 +25,6 @@ export class masterReferenceDto {
   masterEntityName: string;
   masterEntityType: string;
   masterEntityDescription: string;
-  masterColumnName: string;
   tenantId: number;
   status: boolean;
 }
@@ -35,7 +34,6 @@ export class masterReferenceByIdDto {
   masterEntityName: string;
   masterEntityType: string;
   masterEntityDescription: string;
-  masterColumnName: string;
   tenantId: number;
   status: boolean;
 }

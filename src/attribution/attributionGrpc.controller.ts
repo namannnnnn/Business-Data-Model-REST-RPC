@@ -178,7 +178,6 @@ export class AttributeGrpcController {
 
   }
 
-
   @GrpcMethod('AttributeService', 'GetAllAttribute')
   private async getAllAttribute(): Promise<any> {
     const res = await this.service.getAllAttributes();

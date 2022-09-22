@@ -78,6 +78,11 @@ export class AttributeService {
 
     @Inject('MASTER_REFERENCE_REPOSITORY')
     private masterReferenceRepository: Repository<ReferenceMaster>,
+
+
+    @InjectDataSource('PDM')
+    private pdmDataSource: DataSource,
+
   ) {}
 
   async createAttributesRpc(body: {
@@ -844,18 +849,20 @@ export class AttributeService {
     });
 
     const referencedAttributes = await this.masterReferenceRepository.find({
-      relations: {
-        referenceAttributes: true,
-      },
       where: {
         id: attribute[0].referenceMasterId,
-      },
+      }
     });
 
-    let att = JSON.stringify(referencedAttributes[0]);
-    let attr = JSON.parse(att);
+    const queryRunner = this.pdmDataSource.createQueryRunner();
 
-    return { attributes: attr.referenceAttributes };
+    await queryRunner.connect();
+    let tableName = (referencedAttributes[0].masterEntityName).toLowerCase().trim().replace(' ','_') + attribute[0].referenceMasterId
+    const referenceData = await this.pdmDataSource.manager.query(`SELECT * FROM ${tableName} `);
+    await queryRunner.release();
+
+
+    return { referenceData };
   }
 
   async getReferenceAttributeForMaster(id:number): Promise<any> {

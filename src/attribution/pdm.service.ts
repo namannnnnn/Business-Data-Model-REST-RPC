@@ -6,8 +6,7 @@ import {
   QueryRunner,
   Table,
   DataSource,
-  In,
-  getManager,
+  In
 } from 'typeorm';
 import {
   dateVldn,
@@ -92,7 +91,7 @@ export class PdmService {
         isPrimary: true,
         isGenerated: true,
         comment: undefined,
-      },
+      }
     ];
 
     const atts = await this.categoryRepository.find({
@@ -223,11 +222,7 @@ export class PdmService {
 
     for (let i = 0; i < refAtts.attributes.length; i++) {
       let name = refAtts.attributes[i].attributeName;
-      await this.pdmDataSource.manager.query(
-        `INSERT INTO ${tableName} (rm_id, ${columnName}) VALUES ('${
-          i + 1
-        }','${name}')`,
-      );
+      await this.pdmDataSource.manager.query(`INSERT INTO ${tableName} (rm_id, ${columnName}) VALUES ('${i + 1}','${name}')`);
     }
 
     await queryRunner.release();
